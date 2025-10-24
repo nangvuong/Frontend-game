@@ -1,0 +1,98 @@
+/* Tổng thể container */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+  background-size: 200% 200%;
+  animation: gradientMove 6s ease infinite;
+}
+
+/* Hiệu ứng gradient động */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Khối đăng nhập */
+.login-box {
+  width: 90%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.8s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Hiệu ứng fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Avatar và tiêu đề */
+.login-avatar {
+  background-color: #1976d2 !important;
+}
+
+.login-title {
+  font-weight: 600 !important;
+  margin-top: 0.5rem;
+}
+
+/* TextField và Button spacing */
+.MuiTextField-root {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.MuiButton-contained {
+  background: linear-gradient(45deg, #1976d2, #21cbf3);
+  font-weight: 600;
+  text-transform: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MuiButton-contained:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(33, 203, 243, 0.4);
+}
+
+/* Link & Caption */
+.MuiLink-root {
+  text-decoration: none;
+  color: #1976d2;
+  font-weight: 500;
+}
+
+.MuiLink-root:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .login-title {
+    font-size: 1.3rem !important;
+  }
+}

@@ -1,122 +1,63 @@
-import React, { useState, useRef } from "react";
-import { Box, Button, Typography, Paper } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { useTimer } from "react-timer-hook";
+import GameBoard from "./GameBoard";
+import GameOverModal from "./GameOverModal";
 import "./Game.css";
-import { shuffleArray } from "../../utils/shuffle";
+
+const MOCK_WORD = "safe".split("");
 
 export default function Game() {
-  const word = "CAMBRIDGE";
-  const [letters, setLetters] = useState(shuffleArray(word.split("")));
-  const [selected, setSelected] = useState([]);
-  const [dragging, setDragging] = useState(null);
-  const dragRef = useRef(null);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [currentRound, setCurrentRound] = useState(3);
 
-  // 👉 Click vào chữ để chọn / bỏ chọn
-  const handleLetterClick = (letter, index) => {
-    if (selected.includes(letter)) {
-      setSelected(selected.filter((l, i) => i !== selected.indexOf(letter)));
-    } else if (selected.length < word.length) {
-      setSelected([...selected, letter]);
-    }
+  const expiry = new Date();
+  expiry.setSeconds(expiry.getSeconds() + 20);
+  const { seconds, restart } = useTimer({
+    expiryTimestamp: expiry,
+    onExpire: () => console.log("Hết giờ!"),
+  });
+
+  const progressValue = (seconds / 20) * 100;
+
+  const handleGameOver = (isOver, correct) => {
+    setIsGameOver(isOver);
+    setCorrectCount(correct);
   };
 
-  // 👉 Kiểm tra kết quả
-  const handleCheck = () => {
-    if (selected.join("") === word) {
-      alert("🎉 Correct!");
-    } else {
-      alert("❌ Try again!");
-    }
-  };
-
-  // 👉 Reset
-  const handleReset = () => {
-    setSelected([]);
-    setLetters(shuffleArray(word.split("")));
-  };
-
-  // 👉 Drag bắt đầu
-  const handlePointerDown = (e, index) => {
-    const el = e.target;
-    setDragging(index);
-    dragRef.current = {
-      el,
-      startX: e.clientX,
-      startY: e.clientY,
-      originalLeft: el.offsetLeft,
-      originalTop: el.offsetTop,
-    };
-    el.setPointerCapture(e.pointerId);
-  };
-
-  // 👉 Di chuyển
-  const handlePointerMove = (e) => {
-    if (!dragRef.current) return;
-    const { el, startX, startY, originalLeft, originalTop } = dragRef.current;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    el.style.zIndex = 1000;
-    el.style.transform = `translate(${dx}px, ${dy}px)`;
-  };
-
-  // 👉 Kéo xong
-  const handlePointerUp = () => {
-    if (!dragRef.current) return;
-    dragRef.current.el.style.transform = "";
-    dragRef.current.el.style.zIndex = "";
-    dragRef.current = null;
-    setDragging(null);
+  const handleNextRound = () => {
+    // Reset game state for next round
+    setIsGameOver(false);
+    setCorrectCount(0);
+    setCurrentRound(currentRound + 1);
+    // Reset timer would be needed here if you want to continue with a new timer
   };
 
   return (
-    <Box className="game-wrapper">
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        Word Scramble
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 3 }}>
-        Arrange the letters to form the correct word:
-      </Typography>
-
-      {/* Vùng đáp án */}
-      <Box className="answer-box">
-        {word.split("").map((_, i) => (
-          <Paper key={i} className="answer-slot">
-            {selected[i] || ""}
-          </Paper>
-        ))}
+    <Box className="game-container">
+      {/* --- Thanh thông tin trên cùng --- */}
+      <Box className="top-bar">
+        <Typography className="player-info">
+          Vương ⚡ <span className="highlight">5</span>
+        </Typography>
+        <Typography className="round-info">Round 3/10</Typography>
+        <Typography className="opponent-info">
+          Đối thủ ⚡ <span className="highlight">7</span>
+        </Typography>
       </Box>
 
-      {/* Vùng chữ */}
-      <Box className="letters-box">
-        {letters.map((letter, index) => (
-          <Paper
-            key={index}
-            className={`letter-tile ${
-              selected.includes(letter) ? "disabled" : ""
-            }`}
-            onClick={() => handleLetterClick(letter, index)}
-            onPointerDown={(e) => handlePointerDown(e, index)}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-          >
-            <Typography variant="subtitle1" sx={{fontWeight:"bold", opacity:0.7, minWidth: "40px", minHeight: "40px", alignContent: "center"}}>{letter}</Typography>
-          </Paper>
-        ))}
-      </Box>
-
-      {/* Nút chức năng */}
-      <Box sx={{ mt: 3 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleCheck}
-          sx={{ mr: 2 }}
-        >
-          CHECK
-        </Button>
-        <Button variant="outlined" onClick={handleReset}>
-          RESET
-        </Button>
-      </Box>
+      {/* --- Khu vực sắp xếp chữ + Game Over Modal --- */}
+      {!isGameOver ? (
+        <GameBoard onGameOver={handleGameOver} progressValue={progressValue} />
+      ) : (
+        <GameOverModal 
+          isOpen={isGameOver}
+          correctCount={correctCount}
+          currentRound={currentRound + 1}
+          onNextRound={handleNextRound}
+        />
+      )}
     </Box>
   );
 }
