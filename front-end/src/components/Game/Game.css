@@ -139,22 +139,23 @@
   position: relative;
   width: 200px;
   height: 200px;
-  margin: 0 auto 30px;
+  margin: 0 auto 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
   font-weight: bold;
   color: #ffffff;
-  
+  border-radius: 50%;
 }
 
 .star-points::before {
   content: '★';
   position: absolute;
   font-size: 250px;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(106, 76, 243, 0.4);
   z-index: 0;
+  filter: drop-shadow(0 0 0 2px #ffffff);
 }
 
 .star-points-text {
