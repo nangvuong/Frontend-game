@@ -11,6 +11,7 @@ export default function GameBoard({ onGameOver, word }) {
   const [selected, setSelected] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [showResult, setShowResult] = useState(false);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   const expiry = new Date();
   expiry.setSeconds(expiry.getSeconds() + 20);
@@ -37,11 +38,22 @@ export default function GameBoard({ onGameOver, word }) {
           }
         }
         onGameOver && onGameOver(true, correct);
-      }, 1000);
+      }, 3000);
       
       return () => clearTimeout(timer);
     }
   }, [showResult, isGameOver, selected, word, onGameOver]);
+
+  // Delay 1 giây trước khi hiển thị từ đúng
+  useEffect(() => {
+    if (showResult && !showCorrectAnswer) {
+      const timer = setTimeout(() => {
+        setShowCorrectAnswer(true);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showResult, showCorrectAnswer]);
 
 
   const handleSelect = (ch, i) => {
@@ -85,20 +97,27 @@ export default function GameBoard({ onGameOver, word }) {
         <Stack direction="row" spacing={1.5} mb={3} justifyContent="center" flexWrap="wrap">
             {Array.from({ length: word.length }).map((_, i) => {
             let boxClass = `result-box`;
+            const correctChar = word.split("")[i]; // Lấy ký tự đúng
+            
             if (selected[i]) {
                 boxClass += ` filled`;
+                // Hiển thị màu cho ký tự đã chọn khi showResult hoặc isGameOver
                 if (showResult || isGameOver) {
-                boxClass += selected[i] === word[i] ? ` correct` : ` incorrect`;
+                  boxClass += selected[i] === correctChar ? ` correct` : ` incorrect`;
                 }
+            } else if (showResult || isGameOver) {
+                // Khi hết giờ hoặc xong, hiển thị ký tự đúng ở vị trí trống (tô màu đỏ)
+                boxClass += ` filled incorrect`;
             }
+            
             return (
                 <Paper
-                key={i}
-                onClick={() => selected[i] && !isGameOver && !showResult && handleUndo(i)}
-                className={boxClass}
+                  key={i}
+                  onClick={() => selected[i] && !isGameOver && !showResult && handleUndo(i)}
+                  className={boxClass}
                 >
                 <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: '1.5rem' }}>
-                    {selected[i] || ""}
+                    {showCorrectAnswer ? correctChar : (selected[i] ? selected[i] : "")}
                 </Typography>
                 </Paper>
             );
@@ -107,7 +126,7 @@ export default function GameBoard({ onGameOver, word }) {
 
         <Stack direction="row" spacing={1.5} justifyContent="center" flexWrap="wrap">
             {scrambled.map((ch, i) =>
-            ch ? (
+            !(showResult || isGameOver) && ch ? (
                 <motion.div key={`char-${i}-${ch}`} whileHover={{ scale: 1.05 }}>
                 <Paper elevation={3} onClick={() => !isGameOver && handleSelect(ch, i)} className="char-box">
                     <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: '1.5rem' }}>
