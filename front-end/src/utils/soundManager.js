@@ -1,54 +1,79 @@
-import { Howl, Howler } from "howler";
+import { Howl } from "howler";
+import clickCardWAV from "../assets/clickCard.wav";
+import startRoundMP3 from "../assets/startRound.wav";
+import wrongAnsMP3 from "../assets/wrongAns.mp3";
+import correctAnsMP3 from "../assets/correctAns.mp3";
+import winGameWAV from "../assets/winGame.wav";
+import loseGameWAV from "../assets/loseGame.wav";
 
-// Khởi tạo âm thanh nền
-export const backgroundMusic = new Howl({
-  src: [
-    "https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3",
-  ],
-  loop: true,
-  volume: 0.3,
-  autoplay: false,
-});
-
-// Âm thanh khi chọn ký tự
-export const selectSound = new Howl({
-  src: ["https://assets.mixkit.co/active_storage/sfx/2877/2877-preview.mp3"],
+// Âm thanh khi click thẻ
+export const clickCardSound = new Howl({
+  src: [clickCardWAV],
   volume: 0.5,
   autoplay: false,
 });
 
-// Âm thanh khi hoàn thành game
-export const completeSound = new Howl({
-  src: ["https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"],
+// Âm thanh khi bắt đầu round
+export const startRoundSound = new Howl({
+  src: [startRoundMP3],
+  volume: 0.5,
+  autoplay: false,
+});
+
+// Âm thanh khi trả lời sai
+export const wrongAnswerSound = new Howl({
+  src: [wrongAnsMP3],
+  volume: 0.6,
+  autoplay: false,
+});
+
+// Âm thanh khi trả lời đúng
+export const correctAnswerSound = new Howl({
+  src: [correctAnsMP3],
+  volume: 0.6,
+  autoplay: false,
+});
+
+// Âm thanh khi win game
+export const winGameSound = new Howl({
+  src: [winGameWAV],
   volume: 0.7,
   autoplay: false,
 });
 
-// Âm thanh khi chiến thắng
-export const winSound = new Howl({
-  src: ["https://assets.mixkit.co/active_storage/sfx/2058/2058-preview.mp3"],
+// Âm thanh khi lose game
+export const loseGameSound = new Howl({
+  src: [loseGameWAV],
   volume: 0.7,
   autoplay: false,
 });
 
-// Âm thanh khi thua
-export const loseSound = new Howl({
-  src: ["https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"],
-  volume: 0.7,
-  autoplay: false,
-});
-
-// Hàm play nhạc nền
-export const playBackgroundMusic = () => {
-  backgroundMusic.play();
+// Hàm play âm thanh click thẻ
+export const playClickCardSound = () => {
+  clickCardSound.play();
 };
 
-// Hàm dừng nhạc nền
-export const stopBackgroundMusic = () => {
-  backgroundMusic.stop();
+// Hàm play âm thanh bắt đầu round
+export const playStartRoundSound = () => {
+  startRoundSound.play();
 };
 
-// Hàm điều chỉnh âm lượng
-export const setMusicVolume = (volume) => {
-  Howler.volume(volume);
+// Hàm play âm thanh trả lời sai
+export const playWrongAnswerSound = () => {
+  wrongAnswerSound.play();
+};
+
+// Hàm play âm thanh trả lời đúng
+export const playCorrectAnswerSound = () => {
+  correctAnswerSound.play();
+};
+
+// Hàm play âm thanh win game
+export const playWinGameSound = () => {
+  winGameSound.play();
+};
+
+// Hàm play âm thanh lose game
+export const playLoseGameSound = () => {
+  loseGameSound.play();
 };

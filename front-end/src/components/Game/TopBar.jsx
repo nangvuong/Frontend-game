@@ -3,6 +3,14 @@ import { Box, Typography, Divider, IconButton } from "@mui/material";
 import { FaStar, FaTrophy, FaVolumeUp, FaVolumeMute, FaGamepad, FaRedoAlt, FaSignOutAlt } from "react-icons/fa";
 import Instructions from "./Instructions";
 import ExitGameDialog from "./ExitGameDialog";
+import { 
+  clickCardSound, 
+  startRoundSound, 
+  wrongAnswerSound, 
+  correctAnswerSound, 
+  winGameSound, 
+  loseGameSound 
+} from "../../utils/soundManager";
 
 export default function TopBar({ currentRound, myPoint, opponentPoints, onRefresh, onExit, isGameOver, correctCount }) {
   const [isMuted, setIsMuted] = useState(false);
@@ -11,6 +19,15 @@ export default function TopBar({ currentRound, myPoint, opponentPoints, onRefres
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
+    // Toggle mute for all sounds
+    const allSounds = [clickCardSound, startRoundSound, wrongAnswerSound, correctAnswerSound, winGameSound, loseGameSound];
+    allSounds.forEach(sound => {
+      if (!isMuted) {
+        sound.mute(true);
+      } else {
+        sound.mute(false);
+      }
+    });
   };
 
   const handleManualOpen = () => {

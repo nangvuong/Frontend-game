@@ -3,6 +3,7 @@ import { Box, Typography, Paper, Stack, LinearProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTimer } from "react-timer-hook";
 import { shuffleArray } from "../../utils/shuffle";
+import { playClickCardSound, playWrongAnswerSound, playCorrectAnswerSound, playStartRoundSound } from "../../utils/soundManager";
 
 
 
@@ -33,18 +34,30 @@ const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
     }
   }));
 
+  // Play start round sound on mount
+  useEffect(() => {
+    playStartRoundSound();
+  }, []);
+
   // Delay 1 giây trước khi hiển thị GameOverModal
   useEffect(() => {
     if (showResult && !isGameOver) {
+      // Check if user's answer is wrong (count correct answers)
+      let correct = 0;
+      for (let i = 0; i < word.length; i++) {
+        if (selected[i] === word[i]) {
+          correct++;
+        }
+      }
+      // Play sound based on answer correctness
+      if (correct === word.length) {
+        playCorrectAnswerSound();
+      } else if (correct < word.length) {
+        playWrongAnswerSound();
+      }
+      
       const timer = setTimeout(() => {
         setIsGameOver(true);
-        // Tính toán điểm
-        let correct = 0;
-        for (let i = 0; i < word.length; i++) {
-          if (selected[i] === word[i]) {
-            correct++;
-          }
-        }
         onGameOver && onGameOver(true, correct);
       }, 3000);
       
@@ -66,6 +79,7 @@ const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
 
   const handleSelect = (ch, i) => {
     if (selected.length < word.length && !isGameOver && !showResult) {
+      playClickCardSound();
       const newSelected = [...selected, ch];
       setSelected(newSelected);
       setScrambled(scrambled.map((c, idx) => (idx === i ? null : c)));
@@ -79,18 +93,21 @@ const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
   };
 
   const handleUndo = (index) => {
-    const removed = selected[index];
-    const newSelected = selected.filter((_, i) => i !== index);
-    setSelected(newSelected);
-    
-    const newScrambled = [...scrambled];
-    const emptyIndex = newScrambled.indexOf(null);
-    if (emptyIndex !== -1) {
-      newScrambled[emptyIndex] = removed;
-    } else {
-      newScrambled.push(removed);
+    if (selected[index] && !isGameOver && !showResult) {
+      playClickCardSound();
+      const removed = selected[index];
+      const newSelected = selected.filter((_, i) => i !== index);
+      setSelected(newSelected);
+      
+      const newScrambled = [...scrambled];
+      const emptyIndex = newScrambled.indexOf(null);
+      if (emptyIndex !== -1) {
+        newScrambled[emptyIndex] = removed;
+      } else {
+        newScrambled.push(removed);
+      }
+      setScrambled(newScrambled);
     }
-    setScrambled(newScrambled);
   };
 
   return (

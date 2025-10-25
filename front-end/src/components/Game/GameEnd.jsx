@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { FaTrophy, FaRedo, FaHome } from "react-icons/fa";
+import { playWinGameSound, playLoseGameSound } from "../../utils/soundManager";
 
 export default function GameEnd({ myPoint, opponentPoints, onRestart, onHome }) {
   const determinWinner = () => {
@@ -14,6 +15,15 @@ export default function GameEnd({ myPoint, opponentPoints, onRestart, onHome }) 
   };
 
   const result = determinWinner();
+
+  // Play sound based on result
+  useEffect(() => {
+    if (myPoint > opponentPoints) {
+      playWinGameSound();
+    } else if (myPoint < opponentPoints) {
+      playLoseGameSound();
+    }
+  }, [myPoint, opponentPoints]);
 
   return (
     <Box className="game-end-container">
