@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 
-export default function GameOverModal({ isOpen, correctCount, onNextRound, currentRound }) {
+export default function GameOverModal({ isOpen, correctCount, onNextRound, setPointRound }) {
   useEffect(() => {
     if (isOpen) {
       // Auto transition after 2 seconds
@@ -18,6 +18,7 @@ export default function GameOverModal({ isOpen, correctCount, onNextRound, curre
   if (!isOpen) return null;
 
   const points = correctCount * 10;
+  setPointRound(points);
 
   return (
     <>

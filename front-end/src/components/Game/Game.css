@@ -15,23 +15,100 @@
 .top-bar {
   width: 100%;
   max-width: 900px;
-  background-color: #3516c3;
-  padding: 12px 18px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #3516c3 0%, #5a3db7 100%);
+  padding: 16px 20px;
+  border-radius: 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   font-weight: 600;
-  font-size: 0.95rem;
-  flex-wrap: wrap;
-  gap: 8px;
+  font-size: 1rem;
+  gap: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.highlight {
+.player-card,
+.opponent-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  min-width: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.player-card:hover,
+.opponent-card:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.player-label,
+.opponent-label {
+  font-size: 0.85rem !important;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: bold !important;
+}
+
+.player-stats,
+.opponent-stats {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star-icon {
+  font-size: 1.1rem;
   color: #ffd700;
 }
 
-/* --- Thanh tiến trình thời gian --- */
+.points {
+  font-size: 1.1rem !important;
+  font-weight: bold !important;
+  color: #ffd700;
+}
+
+.round-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: rgba(255, 215, 0, 0.15);
+  border-radius: 12px;
+  min-width: 100px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.round-card:hover {
+  background-color: rgba(255, 215, 0, 0.25);
+  transform: scale(1.05);
+}
+
+.trophy-icon {
+  font-size: 1.2rem;
+  color: #ffd700;
+}
+
+.round-text {
+  font-size: 0.85rem !important;
+  font-weight: bold !important;
+  color: #ffd700;
+  letter-spacing: 0.3px;
+}
+
+/* --- Divider trong TopBar --- */
+.MuiDivider-root {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
 .progress-bar {
   width: 100%;
   max-width: 900px;
@@ -209,4 +286,133 @@
   .letters-section {
     gap: 16px;
   }
+}
+
+/* --- Game End Screen --- */
+.game-end-container {
+  width: 100%;
+  min-height: 90vh;
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.game-end-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 60px 40px;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.trophy-icon-large {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.game-end-message {
+  font-size: 2.5rem !important;
+  font-weight: bold !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.final-scores {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  padding: 30px;
+  background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.final-score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 120px;
+}
+
+.final-label {
+  font-size: 0.95rem !important;
+  font-weight: bold !important;
+  text-transform: uppercase;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+.final-points {
+  font-size: 3rem !important;
+  font-weight: bold !important;
+  color: #ffd700;
+}
+
+.vs-text {
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  color: #999;
+}
+
+.game-end-actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.game-end-actions > button {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 2rem !important;
+  padding: 0 !important;
+}
+
+.restart-button {
+  box-shadow: 0 6px 20px rgba(110, 231, 183, 0.35) !important;
+  transition: all 0.3s ease !important;
+}
+
+.restart-button:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 10px 30px rgba(110, 231, 183, 0.5) !important;
+}
+
+.restart-button:active {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.home-button {
+  box-shadow: 0 6px 20px rgba(124, 92, 255, 0.35) !important;
+  transition: all 0.3s ease !important;
+}
+
+.home-button:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 10px 30px rgba(124, 92, 255, 0.5) !important;
+}
+
+.home-button:active {
+  transform: translateY(-2px) scale(1.03);
 }

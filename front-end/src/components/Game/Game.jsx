@@ -1,25 +1,22 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
-import { useTimer } from "react-timer-hook";
+import { Box } from "@mui/material";
+import TopBar from "./TopBar";
 import GameBoard from "./GameBoard";
 import GameOverModal from "./GameOverModal";
+import GameEnd from "./GameEnd";
 import "./Game.css";
 
-const MOCK_WORD = "safe".split("");
-
 export default function Game() {
+  const [word, setWord] = useState("vite");
   const [isGameOver, setIsGameOver] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
-  const [currentRound, setCurrentRound] = useState(3);
+  const [currentRound, setCurrentRound] = useState(1);
+  const [gameKey, setGameKey] = useState(0);
 
-  const expiry = new Date();
-  expiry.setSeconds(expiry.getSeconds() + 20);
-  const { seconds, restart } = useTimer({
-    expiryTimestamp: expiry,
-    onExpire: () => console.log("Hết giờ!"),
-  });
-
-  const progressValue = (seconds / 20) * 100;
+  const [myPoint, setMyPoint] = useState(0);
+  const [opponentPoints, setOpponentPoints] = useState(100);
+  const [pointRound, setPointRound] = useState(0);
+  const [isGameEnded, setIsGameEnded] = useState(false);
 
   const handleGameOver = (isOver, correct) => {
     setIsGameOver(isOver);
@@ -30,34 +27,61 @@ export default function Game() {
     // Reset game state for next round
     setIsGameOver(false);
     setCorrectCount(0);
+    
+    // Check if game has reached 10 rounds
+    if (currentRound >= 10) {
+      setIsGameEnded(true);
+      return;
+    }
+    
     setCurrentRound(currentRound + 1);
-    // Reset timer would be needed here if you want to continue with a new timer
+    // Force GameBoard to remount by changing key (resets timer)
+    setGameKey(gameKey + 1);
+    setMyPoint(myPoint + pointRound);
+  };
+
+  const handleRestart = () => {
+    setIsGameEnded(false);
+    setIsGameOver(false);
+    setCorrectCount(0);
+    setCurrentRound(1);
+    setGameKey(gameKey + 1);
+    setMyPoint(0);
+    setOpponentPoints(0);
+    setPointRound(0);
+  };
+
+  const handleHome = () => {
+    // Navigate to home page
+    window.location.href = "/";
   };
 
   return (
-    <Box className="game-container">
-      {/* --- Thanh thông tin trên cùng --- */}
-      <Box className="top-bar">
-        <Typography className="player-info">
-          Vương ⚡ <span className="highlight">5</span>
-        </Typography>
-        <Typography className="round-info">Round 3/10</Typography>
-        <Typography className="opponent-info">
-          Đối thủ ⚡ <span className="highlight">7</span>
-        </Typography>
-      </Box>
-
-      {/* --- Khu vực sắp xếp chữ + Game Over Modal --- */}
-      {!isGameOver ? (
-        <GameBoard onGameOver={handleGameOver} progressValue={progressValue} />
-      ) : (
-        <GameOverModal 
-          isOpen={isGameOver}
-          correctCount={correctCount}
-          currentRound={currentRound + 1}
-          onNextRound={handleNextRound}
+    <>
+      {isGameEnded ? (
+        <GameEnd 
+          myPoint={myPoint} 
+          opponentPoints={opponentPoints}
+          onRestart={handleRestart}
+          onHome={handleHome}
         />
+      ) : (
+        <Box className="game-container">
+          <TopBar currentRound={currentRound} myPoint={myPoint} opponentPoints={opponentPoints} />
+
+          {/* --- Khu vực sắp xếp chữ + Game Over Modal --- */}
+          {!isGameOver ? (
+            <GameBoard key={gameKey} onGameOver={handleGameOver} word={word} />
+          ) : (
+            <GameOverModal 
+              isOpen={isGameOver}
+              correctCount={correctCount}
+              onNextRound={handleNextRound}
+              setPointRound={setPointRound}
+            />
+          )}
+        </Box>
       )}
-    </Box>
+    </>
   );
 }
