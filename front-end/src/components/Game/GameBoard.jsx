@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Paper, Stack, LinearProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTimer } from "react-timer-hook";
@@ -10,45 +10,50 @@ export default function GameBoard({ onGameOver, word }) {
   const [scrambled, setScrambled] = useState(shuffleArray(word.split("")));
   const [selected, setSelected] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [showResult, setShowResult] = useState(false);
 
   const expiry = new Date();
   expiry.setSeconds(expiry.getSeconds() + 20);
   const { seconds } = useTimer({
     expiryTimestamp: expiry,
     onExpire: () => {
-      // Check correct positions when time runs out
-      let correct = 0;
-      for (let i = 0; i < word.length; i++) {
-        if (selected[i] === word[i]) {
-          correct++;
-        }
-      }
-      setIsGameOver(true);
-      onGameOver && onGameOver(true, correct);
+      // Khi hết giờ, hiển thị kết quả trong 1 giây trước khi chuyển modal
+      setShowResult(true);
     },
   });
 
   const progressValue = (seconds / 20) * 100;
 
+  // Delay 1 giây trước khi hiển thị GameOverModal
+  useEffect(() => {
+    if (showResult && !isGameOver) {
+      const timer = setTimeout(() => {
+        setIsGameOver(true);
+        // Tính toán điểm
+        let correct = 0;
+        for (let i = 0; i < word.length; i++) {
+          if (selected[i] === word[i]) {
+            correct++;
+          }
+        }
+        onGameOver && onGameOver(true, correct);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showResult, isGameOver, selected, word, onGameOver]);
+
 
   const handleSelect = (ch, i) => {
-    if (selected.length < word.length && !isGameOver) {
+    if (selected.length < word.length && !isGameOver && !showResult) {
       const newSelected = [...selected, ch];
       setSelected(newSelected);
       setScrambled(scrambled.map((c, idx) => (idx === i ? null : c)));
       
       // Check if all positions are filled
       if (newSelected.length === word.length) {
-        // Count correct positions
-        let correct = 0;
-        for (let i = 0; i < word.length; i++) {
-          if (newSelected[i] === word[i]) {
-            correct++;
-          }
-        }
-        setIsGameOver(true);
-        // Notify parent to trigger GameOverModal
-        onGameOver && onGameOver(true, correct);
+        // Hiển thị kết quả trong 1 giây trước khi chuyển modal
+        setShowResult(true);
       }
     }
   };
@@ -82,14 +87,14 @@ export default function GameBoard({ onGameOver, word }) {
             let boxClass = `result-box`;
             if (selected[i]) {
                 boxClass += ` filled`;
-                if (isGameOver) {
+                if (showResult || isGameOver) {
                 boxClass += selected[i] === word[i] ? ` correct` : ` incorrect`;
                 }
             }
             return (
                 <Paper
                 key={i}
-                onClick={() => selected[i] && !isGameOver && handleUndo(i)}
+                onClick={() => selected[i] && !isGameOver && !showResult && handleUndo(i)}
                 className={boxClass}
                 >
                 <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: '1.5rem' }}>

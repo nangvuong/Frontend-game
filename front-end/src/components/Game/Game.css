@@ -109,6 +109,42 @@
 .MuiDivider-root {
   border-color: rgba(255, 255, 255, 0.2) !important;
 }
+
+/* --- TopBar Actions (Mute + Manual buttons) --- */
+.topbar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.topbar-button {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  color: #ffd700 !important;
+}
+
+.topbar-button:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 215, 0, 0.15) !important;
+}
+
+.topbar-button:active {
+  transform: scale(0.95);
+}
+
+.manual-button {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+.mute-button {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
 .progress-bar {
   width: 100%;
   max-width: 900px;
@@ -229,8 +265,8 @@
 .star-points::before {
   content: '★';
   position: absolute;
-  font-size: 250px;
-  color: rgba(106, 76, 243, 0.4);
+  font-size: 200px;
+  color: rgba(255, 215, 0, 0.8);
   z-index: 0;
   filter: drop-shadow(0 0 0 2px #ffffff);
 }
