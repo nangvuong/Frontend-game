@@ -1,5 +1,5 @@
 .game-container {
-  min-height: 90vh;
+  min-height: 100vh;
   background-color: #4b2edc;
   color: #fff;
   display: flex;
@@ -13,7 +13,7 @@
 
 /* --- Game Start Screen (Hero Style) --- */
 .game-start-hero {
-  min-height: 90vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
   display: flex;
   flex-direction: column;

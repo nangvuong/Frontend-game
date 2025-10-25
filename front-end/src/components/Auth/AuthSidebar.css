@@ -1,0 +1,119 @@
+/* ============ AUTH SIDEBAR - LETTER & SLOGAN ============ */
+.auth-left {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  color: white;
+  animation: slideInLeft 0.6s ease-out;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-word-display {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.auth-word-letters,
+.auth-scramble-letters {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.auth-letter {
+  background: white;
+  color: #4b2edc;
+  font-weight: bold;
+  font-size: 2.2rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.auth-letter:hover {
+  transform: scale(1.1) translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.auth-slogan {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+  text-align: center !important;
+  line-height: 1.5;
+  max-width: 400px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px 24px !important;
+  border-radius: 12px;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .auth-letter {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+
+  .auth-slogan {
+    font-size: 1.1rem !important;
+    max-width: 350px;
+    padding: 18px 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-letter {
+    width: 60px;
+    height: 60px;
+    font-size: 1.6rem;
+  }
+
+  .auth-word-letters,
+  .auth-scramble-letters {
+    gap: 10px;
+  }
+
+  .auth-word-display {
+    gap: 20px;
+  }
+
+  .auth-slogan {
+    font-size: 1rem !important;
+    max-width: 100%;
+    padding: 16px 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-letter {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .auth-word-letters,
+  .auth-scramble-letters {
+    gap: 8px;
+  }
+
+  .auth-word-display {
+    gap: 16px;
+  }
+
+  .auth-slogan {
+    font-size: 0.9rem !important;
+    max-width: 100%;
+    padding: 14px 16px !important;
+  }
+}

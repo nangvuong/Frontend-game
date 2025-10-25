@@ -1,25 +1,31 @@
-// import './App.css' 
+import './App.css'  
 import TopBar from './components/TopBar/TopBar'
 import Game from './components/Game/Game';
-import Login from './components/Login/Login';
-import { Container, Toolbar } from '@mui/material'
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import { BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 
-// Ứng dụng gốc: cấu hình router và bao bọc layout với thanh điều hướng cố định ở trên cùng
-
 function App() {
-  const [login, setLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  const handleLogin = (status) => {
+    setIsLoggedIn(status);
+  };
+
+  const handleRegister = (status) => {
+    setIsLoggedIn(status);
+  };
+
   return (
     <Router>
-      {login && <TopBar />}
-      <Container fixed>
-        <Routes>
-            <Route path="/" element={<Game />} />
-            <Route path="/login" element={<Login onLogin={login} />} />
-        </Routes>   
-      </Container>
+      {isLoggedIn}
+      <Routes>
+          <Route path="/" element={isLoggedIn ? <Game /> : <Login onLogin={handleLogin} />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/register" element={<Register onRegister={handleRegister} />} />
+      </Routes>
     </Router>
   )
 }

@@ -16,9 +16,4 @@ code {
 }
 
 /* Container trong suốt nhẹ để nổi card */
-.MuiContainer-root {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px); /* hiệu ứng kính mờ */
-  border-radius: 16px;
-  padding: 20px;
-}
+
