@@ -1,16 +1,166 @@
-/* hiệu ứng hover cho từng action */
-.nav-action {
-  transition: all 0.25s ease-in-out !important;
-  color: #555 !important;
+/* ============ TOPBAR CONTAINER ============ */
+.topbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(135deg, #ffffff 0%, #f9f7ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(75, 46, 220, 0.1);
+  z-index: 1000;
 }
 
-.nav-action:hover {
-  transform: translateY(-4px);
-  color: #1976d2 !important; /* màu xanh primary */
+/* ============ LOGO - LEFT ============ */
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  min-width: fit-content;
 }
 
-/* trạng thái active (được chọn) */
-.Mui-selected {
-  color: #1976d2 !important;
+.topbar-logo:hover {
+  transform: translateY(-2px);
+}
+
+.topbar-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #4b2edc !important;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* ============ NAVIGATION CENTER ============ */
+.topbar-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+  margin: 0 20px;
+}
+
+.topbar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.topbar-nav-link:hover {
+  background-color: rgba(75, 46, 220, 0.08);
+  color: #4b2edc;
+  transform: translateY(-2px);
+}
+
+.topbar-nav-link.active {
+  background: linear-gradient(135deg, rgba(75, 46, 220, 0.15), rgba(106, 76, 243, 0.1));
+  color: #4b2edc;
+  font-weight: 700;
+}
+
+/* ============ LOGOUT BUTTON - RIGHT ============ */
+.topbar-logout-btn {
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%) !important;
+  color: white !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
   font-weight: 600 !important;
+  text-transform: none !important;
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.3) !important;
+  transition: all 0.3s ease !important;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.topbar-logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(75, 46, 220, 0.4) !important;
+}
+
+.topbar-logout-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ============ RESPONSIVE TABLET ============ */
+@media (max-width: 768px) {
+  .topbar-container {
+    height: 60px;
+    padding: 0 20px;
+  }
+
+  .topbar-logo {
+    gap: 8px;
+  }
+
+  .topbar-title {
+    font-size: 1.2rem !important;
+    display: none;
+  }
+
+  .topbar-nav-center {
+    gap: 4px;
+    margin: 0 10px;
+  }
+
+  .topbar-nav-link {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    gap: 4px;
+  }
+
+  .topbar-nav-link span {
+    display: none;
+  }
+
+  .topbar-logout-btn {
+    padding: 8px 16px !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 480px) {
+  .topbar-container {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .topbar-logo {
+    gap: 6px;
+  }
+
+  .topbar-nav-center {
+    gap: 2px;
+    margin: 0 8px;
+  }
+
+  .topbar-nav-link {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    gap: 3px;
+  }
+
+  .topbar-nav-link span {
+    display: none;
+  }
+
+  .topbar-logout-btn {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
 }

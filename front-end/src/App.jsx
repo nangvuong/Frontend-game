@@ -1,5 +1,6 @@
 import './App.css'  
 import TopBar from './components/TopBar/TopBar'
+import ProtectedRoute from './components/ProtectedRoute'
 import Game from './components/Game/Game';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
@@ -20,11 +21,16 @@ function App() {
 
   return (
     <Router>
-      {isLoggedIn}
+      {isLoggedIn && <TopBar onLogout={handleLogin} />}
       <Routes>
-          <Route path="/" element={isLoggedIn ? <Game /> : <Login onLogin={handleLogin} />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register onRegister={handleRegister} />} />
+          
+          <Route path="/game" element={
+            
+              <Game />
+           
+          } />
       </Routes>
     </Router>
   )
