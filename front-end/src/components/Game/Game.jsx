@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Box } from "@mui/material";
 import GameStart from "./GameStart";
 import TopBar from "./TopBar";
@@ -19,6 +19,8 @@ export default function Game() {
   const [opponentPoints, setOpponentPoints] = useState(100);
   const [pointRound, setPointRound] = useState(0);
   const [isGameEnded, setIsGameEnded] = useState(false);
+
+  const gameBoardRef = useRef(null);
 
   const handleGameOver = (isOver, correct) => {
     setIsGameOver(isOver);
@@ -63,6 +65,18 @@ export default function Game() {
     window.location.href = "/";
   };
 
+  const handleRefreshCharacters = () => {
+    // Call refresh on GameBoard without resetting timer
+    if (gameBoardRef.current) {
+      gameBoardRef.current.refreshCharacters();
+    }
+  };
+
+  const handleExitGame = () => {
+    // End game and go to GameEnd screen (without calculating current round points)
+    setIsGameEnded(true);
+  };
+
   return (
     <>
       {!isGameStarted ? (
@@ -76,11 +90,19 @@ export default function Game() {
         />
       ) : (
         <Box className="game-container">
-          <TopBar currentRound={currentRound} myPoint={myPoint} opponentPoints={opponentPoints} />
+          <TopBar 
+            currentRound={currentRound} 
+            myPoint={myPoint} 
+            opponentPoints={opponentPoints}
+            onRefresh={handleRefreshCharacters}
+            onExit={handleExitGame}
+            isGameOver={isGameOver}
+            correctCount={correctCount}
+          />
 
           {/* --- Khu vực sắp xếp chữ + Game Over Modal --- */}
           {!isGameOver ? (
-            <GameBoard key={gameKey} onGameOver={handleGameOver} word={word} />
+            <GameBoard ref={gameBoardRef} key={gameKey} onGameOver={handleGameOver} word={word} />
           ) : (
             <GameOverModal 
               isOpen={isGameOver}

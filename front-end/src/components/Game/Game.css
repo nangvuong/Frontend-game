@@ -348,7 +348,15 @@
   background-color: rgba(255, 215, 0, 0.1) !important;
 }
 
+.refresh-button {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
 .mute-button {
+  background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+.exit-button {
   background-color: rgba(255, 215, 0, 0.1) !important;
 }
 

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Box, Typography, Divider, IconButton } from "@mui/material";
-import { FaStar, FaTrophy, FaVolumeUp, FaVolumeMute, FaGamepad } from "react-icons/fa";
+import { FaStar, FaTrophy, FaVolumeUp, FaVolumeMute, FaGamepad, FaRedoAlt, FaSignOutAlt } from "react-icons/fa";
 import Instructions from "./Instructions";
+import ExitGameDialog from "./ExitGameDialog";
 
-export default function TopBar({ currentRound, myPoint, opponentPoints }) {
+export default function TopBar({ currentRound, myPoint, opponentPoints, onRefresh, onExit, isGameOver, correctCount }) {
   const [isMuted, setIsMuted] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showExitDialog, setShowExitDialog] = useState(false);
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
@@ -17,6 +19,19 @@ export default function TopBar({ currentRound, myPoint, opponentPoints }) {
 
   const handleManualClose = () => {
     setShowInstructions(false);
+  };
+
+  const handleExitClick = () => {
+    setShowExitDialog(true);
+  };
+
+  const handleExitConfirm = () => {
+    setShowExitDialog(false);
+    onExit();
+  };
+
+  const handleExitCancel = () => {
+    setShowExitDialog(false);
   };
 
   return (
@@ -35,6 +50,21 @@ export default function TopBar({ currentRound, myPoint, opponentPoints }) {
                 }}
             >
                 <FaGamepad />
+            </IconButton>
+            
+            <IconButton
+                className="topbar-button refresh-button"
+                onClick={onRefresh}
+                title="Làm mới ký tự"
+                sx={{
+                    color: "#ffd700",
+                    fontSize: "1.2rem",
+                    "&:hover": {
+                    backgroundColor: "rgba(255, 215, 0, 0.2)",
+                    },
+                }}
+            >
+                <FaRedoAlt />
             </IconButton>
         </Box>
 
@@ -82,9 +112,30 @@ export default function TopBar({ currentRound, myPoint, opponentPoints }) {
             >
             {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
             </IconButton>
+            
+            <IconButton
+                className="topbar-button exit-button"
+                onClick={handleExitClick}
+                title="Thoát"
+                sx={{
+                    color: "#ffd700",
+                    fontSize: "1.2rem",
+                    "&:hover": {
+                    backgroundColor: "rgba(255, 215, 0, 0.2)",
+                    },
+                }}
+            >
+                <FaSignOutAlt />
+            </IconButton>
         </Box>
 
         <Instructions isOpen={showInstructions} onClose={handleManualClose} />
+
+        <ExitGameDialog
+          isOpen={showExitDialog}
+          onClose={handleExitCancel}
+          onConfirm={handleExitConfirm}
+        />
     </Box>
   );
 }

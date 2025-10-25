@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { Box, Typography, Paper, Stack, LinearProgress } from "@mui/material";
 import { motion } from "framer-motion";
 import { useTimer } from "react-timer-hook";
@@ -6,7 +6,7 @@ import { shuffleArray } from "../../utils/shuffle";
 
 
 
-export default function GameBoard({ onGameOver, word }) {
+const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
   const [scrambled, setScrambled] = useState(shuffleArray(word.split("")));
   const [selected, setSelected] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -24,6 +24,14 @@ export default function GameBoard({ onGameOver, word }) {
   });
 
   const progressValue = (seconds / 20) * 100;
+
+  // Expose hàm refresh để làm mới ký tự mà không reset timer
+  useImperativeHandle(ref, () => ({
+    refreshCharacters: () => {
+      setScrambled(shuffleArray(word.split("")));
+      setSelected([]);
+    }
+  }));
 
   // Delay 1 giây trước khi hiển thị GameOverModal
   useEffect(() => {
@@ -160,4 +168,6 @@ export default function GameBoard({ onGameOver, word }) {
       </Box>
     </>
   );
-}
+});
+
+export default GameBoard;
