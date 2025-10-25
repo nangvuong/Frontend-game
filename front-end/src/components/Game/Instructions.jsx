@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Dialog, Button } from "@mui/material";
+import { Box, Typography, Dialog, Button, Stack, Divider } from "@mui/material";
 import { FaTimes } from "react-icons/fa";
 
 export default function Instructions({ isOpen, onClose }) {
@@ -11,88 +11,94 @@ export default function Instructions({ isOpen, onClose }) {
       fullWidth
       PaperProps={{
         sx: {
-          backgroundColor: "#f8f9fa",
-          borderRadius: "16px",
-          boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+          background: "linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)",
+          borderRadius: "20px",
+          boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
         },
       }}
     >
-      <Box sx={{ padding: "32px 24px" }}>
+      <Box sx={{ padding: "32px 28px" }}>
         {/* Header */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px" }}>
-          <Typography sx={{ fontSize: "1.8rem", fontWeight: "bold", color: "#4b2edc" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "28px" }}>
+          <Typography sx={{ fontSize: "1.8rem", fontWeight: "bold", background: "linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%)", backgroundClip: "text", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             🎮 Cách Chơi
           </Typography>
-          <Button onClick={onClose} sx={{ minWidth: "auto", padding: 0 }}>
-            <FaTimes size={24} color="#666" />
+          <Button onClick={onClose} sx={{ minWidth: "auto", padding: 0, color: "#999", transition: "all 0.3s", "&:hover": { color: "#4b2edc", transform: "scale(1.1)" } }}>
+            <FaTimes size={24} />
           </Button>
         </Box>
 
+        <Divider sx={{ marginBottom: "28px", background: "linear-gradient(90deg, transparent, #ddd, transparent)" }} />
+
         {/* Instructions */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+        <Stack spacing={3}>
+          {/* Objective */}
           <Box>
-            <Typography sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4b2edc", marginBottom: "8px" }}>
-              📝 Mục tiêu
-            </Typography>
-            <Typography sx={{ fontSize: "0.9rem", color: "#666", lineHeight: "1.6" }}>
-              Sắp xếp các ký tự để tạo thành từ tiếng Việt đúng trong 20 giây.
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+              <Typography sx={{ fontSize: "1.4rem" }}>📝</Typography>
+              <Typography sx={{ fontSize: "1.1rem", fontWeight: "bold", color: "#4b2edc" }}>
+                Mục tiêu
+              </Typography>
+            </Box>
+            <Typography sx={{ fontSize: "0.95rem", color: "#555", lineHeight: "1.7", paddingLeft: "34px" }}>
+              Sắp xếp các ký tự để tạo thành từ tiếng Anh đúng trong 20 giây.
             </Typography>
           </Box>
 
+          {/* How to Play */}
           <Box>
-            <Typography sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4b2edc", marginBottom: "8px" }}>
-              🎯 Cách Chơi
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "8px", marginLeft: "12px" }}>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                1. Nhấn vào các ký tự bên dưới để chọn
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                2. Các ký tự sẽ xuất hiện ở hàng trên
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                3. Nhấn vào ký tự đã chọn để hoàn tác
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                4. Hoàn thành từ trước khi hết thời gian
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+              <Typography sx={{ fontSize: "1.4rem" }}>🎯</Typography>
+              <Typography sx={{ fontSize: "1.1rem", fontWeight: "bold", color: "#4b2edc" }}>
+                Cách Chơi
               </Typography>
             </Box>
+            <Stack spacing={1.5} sx={{ paddingLeft: "34px" }}>
+              <Box sx={{ display: "flex", gap: "10px" }}>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: "bold", color: "#6ee7b7", minWidth: "20px" }}>1.</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Nhấn vào các ký tự bên dưới để chọn</Typography>
+              </Box>
+              <Box sx={{ display: "flex", gap: "10px" }}>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: "bold", color: "#6ee7b7", minWidth: "20px" }}>2.</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Các ký tự sẽ xuất hiện ở hàng trên</Typography>
+              </Box>
+              <Box sx={{ display: "flex", gap: "10px" }}>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: "bold", color: "#6ee7b7", minWidth: "20px" }}>3.</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Nhấn vào ký tự đã chọn để hoàn tác</Typography>
+              </Box>
+              <Box sx={{ display: "flex", gap: "10px" }}>
+                <Typography sx={{ fontSize: "0.95rem", fontWeight: "bold", color: "#6ee7b7", minWidth: "20px" }}>4.</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Hoàn thành từ trước khi hết thời gian</Typography>
+              </Box>
+            </Stack>
           </Box>
 
+          {/* Scoring */}
           <Box>
-            <Typography sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4b2edc", marginBottom: "8px" }}>
-              ⭐ Điểm Số
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "8px", marginLeft: "12px" }}>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                • Mỗi ký tự đúng vị trí: 10 điểm
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                • Tối đa 100 điểm/round
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                • Thi đấu 10 round, ai có điểm cao hơn thắng
+            <Box sx={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
+              <Typography sx={{ fontSize: "1.4rem" }}>⭐</Typography>
+              <Typography sx={{ fontSize: "1.1rem", fontWeight: "bold", color: "#4b2edc" }}>
+                Điểm Số
               </Typography>
             </Box>
+            <Stack spacing={1} sx={{ paddingLeft: "34px" }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Typography sx={{ fontSize: "1rem", color: "#ffd700" }}>•</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Mỗi ký tự đúng vị trí: <strong>10 điểm</strong></Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Typography sx={{ fontSize: "1rem", color: "#ffd700" }}>•</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Tối đa: <strong>100 điểm/vòng</strong></Typography>
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Typography sx={{ fontSize: "1rem", color: "#ffd700" }}>•</Typography>
+                <Typography sx={{ fontSize: "0.95rem", color: "#555" }}>Chơi <strong>10 vòng</strong> để hoàn thành</Typography>
+              </Box>
+            </Stack>
           </Box>
+        </Stack>
 
-          <Box>
-            <Typography sx={{ fontSize: "1rem", fontWeight: "bold", color: "#4b2edc", marginBottom: "8px" }}>
-              ⏱️ Thanh Tiến Trình
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: "8px", marginLeft: "12px" }}>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                🟢 Xanh lá (trên 30s): Thời gian còn nhiều
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                🟠 Cam (10-30s): Thời gian sắp hết
-              </Typography>
-              <Typography sx={{ fontSize: "0.9rem", color: "#666" }}>
-                🔴 Đỏ (dưới 10s): Cảnh báo - còn ít thời gian
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+        <Divider sx={{ marginTop: "28px", marginBottom: "28px", background: "linear-gradient(90deg, transparent, #ddd, transparent)" }} />
 
         {/* Close Button */}
         <Button
@@ -100,15 +106,21 @@ export default function Instructions({ isOpen, onClose }) {
           variant="contained"
           fullWidth
           sx={{
-            marginTop: "24px",
-            backgroundColor: "#4b2edc",
-            color: "#fff",
+            background: "linear-gradient(135deg, #6ee7b7 0%, #4ca876 100%)",
+            color: "white",
             fontWeight: "bold",
-            padding: "12px",
-            borderRadius: "8px",
-            textTransform: "uppercase",
+            fontSize: "1rem",
+            padding: "14px",
+            borderRadius: "12px",
+            textTransform: "none",
+            transition: "all 0.3s ease",
+            boxShadow: "0 6px 20px rgba(110, 231, 183, 0.3)",
             "&:hover": {
-              backgroundColor: "#3a1fa3",
+              transform: "translateY(-2px)",
+              boxShadow: "0 10px 30px rgba(110, 231, 183, 0.5)",
+            },
+            "&:active": {
+              transform: "translateY(-1px)",
             },
           }}
         >

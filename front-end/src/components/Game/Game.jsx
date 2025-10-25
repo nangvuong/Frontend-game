@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
+import GameStart from "./GameStart";
 import TopBar from "./TopBar";
 import GameBoard from "./GameBoard";
 import GameOverModal from "./GameOverModal";
@@ -8,6 +9,7 @@ import "./Game.css";
 
 export default function Game() {
   const [word, setWord] = useState("vite");
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [currentRound, setCurrentRound] = useState(1);
@@ -51,6 +53,11 @@ export default function Game() {
     setPointRound(0);
   };
 
+  const handleStart = () => {
+    setIsGameStarted(true);
+    handleRestart();
+  };
+
   const handleHome = () => {
     // Navigate to home page
     window.location.href = "/";
@@ -58,11 +65,13 @@ export default function Game() {
 
   return (
     <>
-      {isGameEnded ? (
+      {!isGameStarted ? (
+        <GameStart onStart={handleStart} onHome={handleHome} />
+      ) : isGameEnded ? (
         <GameEnd 
           myPoint={myPoint} 
           opponentPoints={opponentPoints}
-          onRestart={handleRestart}
+          onRestart={handleStart}
           onHome={handleHome}
         />
       ) : (

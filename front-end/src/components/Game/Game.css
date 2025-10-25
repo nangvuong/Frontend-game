@@ -11,7 +11,214 @@
   gap: 25px; /* tạo khoảng giữa các phần chính */
 }
 
-/* --- Thanh trên cùng --- */
+/* --- Game Start Screen (Hero Style) --- */
+.game-start-hero {
+  min-height: 90vh;
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  gap: 30px;
+  text-align: center;
+  color: white;
+}
+
+.start-words-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.start-word-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.start-word-letters,
+.start-scramble-letters {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.start-letter {
+  background: white;
+  color: #4b2edc;
+  font-weight: bold;
+  font-size: 1.8rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.start-letter:hover {
+  transform: scale(1.05);
+}
+
+.start-description {
+  font-size: 1rem !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  max-width: 500px;
+  line-height: 1.5;
+  font-weight: 500;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.start-how-to-play {
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.start-help-link {
+  color: white !important;
+  font-size: 0.95rem !important;
+  font-weight: bold !important;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px !important;
+  border: 2px solid white !important;
+  border-radius: 50px !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+  text-transform: none !important;
+}
+
+.start-help-link:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.start-play-button-container {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+.start-play-button-large {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+  color: #4b2edc !important;
+  width: 90px !important;
+  height: 90px !important;
+  min-width: 90px !important;
+  min-height: 90px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  border: 3px solid rgba(255, 255, 255, 0.2) !important;
+  text-transform: none !important;
+}
+
+.start-play-button-large:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 12px 32px rgba(255, 215, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.start-play-button-large:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive cho tablet */
+@media (max-width: 768px) {
+  .start-letter {
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .start-description {
+    font-size: 0.95rem !important;
+  }
+
+  .start-help-link {
+    font-size: 0.9rem !important;
+  }
+
+  .start-play-button-large {
+    width: 75px !important;
+    height: 75px !important;
+    min-width: 75px !important;
+    min-height: 75px !important;
+  }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 480px) {
+  .game-start-hero {
+    gap: 20px;
+    padding: 16px 12px;
+  }
+
+  .start-letter {
+    font-size: 1.3rem;
+    width: 40px;
+    height: 40px;
+    gap: 4px;
+  }
+
+  .start-word-letters,
+  .start-scramble-letters {
+    gap: 4px;
+  }
+
+  .start-description {
+    font-size: 0.9rem !important;
+    max-width: 90%;
+  }
+
+  .start-help-link {
+    font-size: 0.85rem !important;
+    padding: 8px 16px !important;
+  }
+
+  .start-play-button-large {
+    width: 65px !important;
+    height: 65px !important;
+    min-width: 65px !important;
+    min-height: 65px !important;
+  }
+}
+
+/* --- Game Start Screen (Hero Style) --- */
 .top-bar {
   width: 100%;
   max-width: 900px;
