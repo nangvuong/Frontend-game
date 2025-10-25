@@ -2,6 +2,7 @@ import './App.css'
 import TopBar from './components/TopBar/TopBar'
 import ProtectedRoute from './components/ProtectedRoute'
 import Game from './components/Game/Game';
+import Home from './components/Home/Home';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <Router>
-      {isLoggedIn && <TopBar onLogout={handleLogin} />}
+      <TopBar onLogout={handleLogin} />
       <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register onRegister={handleRegister} />} />
@@ -29,6 +30,13 @@ function App() {
           <Route path="/game" element={
             
               <Game />
+              
+           
+          } />
+          <Route path="/" element={
+            
+              <Home />
+              
            
           } />
       </Routes>
