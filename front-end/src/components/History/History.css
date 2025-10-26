@@ -1,0 +1,338 @@
+/* ============ HISTORY CONTAINER ============ */
+.history-container {
+  min-height: calc(100vh - 130px);
+  background: linear-gradient(135deg, #f5f3ff 0%, #faf9ff 50%, #f0ebff 100%);
+  padding-top: 90px;
+  padding-bottom: 40px;
+}
+
+/* ============ HISTORY HEADER ============ */
+.history-header {
+  margin-bottom: 48px;
+  animation: slideInDown 0.6s ease-out;
+  margin-top: 20px;
+}
+
+.history-card-header {
+  background: white !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 40px rgba(75, 46, 220, 0.15) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+  overflow: hidden;
+}
+
+.history-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 32px 48px !important;
+}
+
+.history-title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.history-title {
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  font-size: 2rem !important;
+  letter-spacing: -0.8px;
+  margin: 0 !important;
+}
+
+/* ============ HISTORY TABLE ============ */
+.history-table-card {
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.08) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+  overflow: hidden !important;
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.history-table {
+  width: 100%;
+}
+
+.history-table-head {
+  background: linear-gradient(135deg, rgba(75, 46, 220, 0.05) 0%, rgba(106, 76, 243, 0.05) 100%) !important;
+  border-bottom: 2px solid rgba(75, 46, 220, 0.1) !important;
+}
+
+.history-table-cell {
+  font-weight: 700 !important;
+  color: #374151 !important;
+  font-size: 0.95rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px !important;
+  border: none !important;
+}
+
+.history-table-row {
+  border-bottom: 1px solid rgba(75, 46, 220, 0.08) !important;
+  transition: all 0.2s ease;
+}
+
+.history-table-row:hover {
+  background-color: rgba(75, 46, 220, 0.03) !important;
+}
+
+.history-date-time {
+  font-size: 0.9rem !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+.history-time {
+  font-size: 0.8rem !important;
+  color: #9ca3af !important;
+  font-weight: 500 !important;
+  margin: 4px 0 0 0 !important;
+}
+
+.opponent-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.history-opponent {
+  font-size: 1rem !important;
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.history-score-text {
+  font-size: 1rem !important;
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.history-score-text .my-score {
+  color: #10b981;
+  font-weight: 800;
+}
+
+.history-score-text .opponent-score {
+  color: #ef4444;
+  font-weight: 800;
+}
+
+.history-score-text .vs-score {
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+/* ============ EXPANDED DETAILS ============ */
+.history-expanded-row {
+  background-color: rgba(75, 46, 220, 0.02) !important;
+  border-bottom: 1px solid rgba(75, 46, 220, 0.08) !important;
+  display: none;
+}
+
+.history-details {
+  display: flex;
+  align-items: center;
+  padding: 24px 16px;
+  gap: 32px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-label {
+  font-size: 0.8rem !important;
+  color: #9ca3af !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 !important;
+}
+
+.detail-value {
+  font-size: 1.4rem !important;
+  color: #1f2937 !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+/* ============ EMPTY STATE ============ */
+.history-empty-card {
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.08) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+}
+
+.history-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 32px;
+  text-align: center;
+}
+
+.history-empty-text {
+  font-size: 1.2rem !important;
+  color: #9ca3af !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+@media (max-width: 1024px) {
+  .history-header-content {
+    gap: 12px;
+    padding: 24px 32px !important;
+  }
+
+  .history-title {
+    font-size: 1.6rem !important;
+  }
+
+  .history-table-cell {
+    padding: 12px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .opponent-info {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-container {
+    padding-top: 60px;
+  }
+
+  .history-header {
+    margin-bottom: 32px;
+  }
+
+  .history-header-content {
+    padding: 20px 16px !important;
+  }
+
+  .history-title {
+    font-size: 1.4rem !important;
+  }
+
+  .history-table-cell {
+    padding: 10px 8px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .history-date-time {
+    font-size: 0.8rem !important;
+  }
+
+  .history-time {
+    font-size: 0.7rem !important;
+  }
+
+  .opponent-info {
+    gap: 8px;
+    justify-content: flex-start;
+  }
+
+  .history-opponent {
+    font-size: 0.9rem !important;
+  }
+
+  .history-score-text {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-container {
+    padding-top: 56px;
+    padding-bottom: 20px;
+  }
+
+  .history-header {
+    margin-bottom: 24px;
+  }
+
+  .history-header-content {
+    padding: 16px 12px !important;
+    gap: 8px;
+  }
+
+  .history-title {
+    font-size: 1.2rem !important;
+  }
+
+  .history-table-cell {
+    padding: 8px 6px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .history-date-time {
+    font-size: 0.7rem !important;
+  }
+
+  .history-time {
+    font-size: 0.65rem !important;
+  }
+
+  .opponent-info {
+    gap: 6px;
+  }
+
+  .opponent-info Avatar {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 1.2rem !important;
+  }
+
+  .history-opponent {
+    font-size: 0.75rem !important;
+  }
+
+  .history-score-text {
+    font-size: 0.8rem !important;
+  }
+
+  .history-empty {
+    padding: 40px 16px;
+  }
+
+  .history-empty-text {
+    font-size: 1rem !important;
+  }
+}

@@ -7,7 +7,6 @@ import {
   Avatar,
   Button,
   Stack,
-  Divider,
 } from '@mui/material';
 import {
   EditOutlined,
@@ -20,9 +19,9 @@ import { useState } from 'react';
 import EditProfile from './EditProfile';
 import './Profile.css';
 
-export default function Profile() {
-  // Demo user data
-  const [userData, setUserData] = useState({
+export default function Profile({ user }) {
+  // Use user data from props if available, otherwise use demo data
+  const [userData, setUserData] = useState(user || {
     id: 1,
     name: 'Vương',
     avatar: '👨',

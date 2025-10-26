@@ -1,0 +1,312 @@
+/* ============ RANK CONTAINER ============ */
+.rank-container {
+  min-height: calc(100vh - 130px);
+  background: linear-gradient(135deg, #f5f3ff 0%, #faf9ff 50%, #f0ebff 100%);
+  padding-top: 90px;
+  padding-bottom: 40px;
+}
+
+/* ============ RANK HEADER ============ */
+.rank-header {
+  margin-bottom: 48px;
+  animation: slideInDown 0.6s ease-out;
+  margin-top: 20px;
+}
+
+.rank-card-header {
+  background: white !important;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 40px rgba(75, 46, 220, 0.15) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+  overflow: hidden;
+}
+
+.rank-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 32px 48px !important;
+}
+
+.rank-title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rank-title {
+  font-weight: 800 !important;
+  color: #1f2937 !important;
+  font-size: 2rem !important;
+  letter-spacing: -0.8px;
+  margin: 0 !important;
+}
+
+.rank-subtitle {
+  font-size: 0.9rem !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+  margin: 4px 0 0 0 !important;
+}
+
+/* ============ RANK TABLE ============ */
+.rank-table-card {
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.08) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+  overflow: hidden !important;
+  animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.rank-table {
+  width: 100%;
+}
+
+.rank-table-head {
+  background: linear-gradient(135deg, rgba(75, 46, 220, 0.05) 0%, rgba(106, 76, 243, 0.05) 100%) !important;
+  border-bottom: 2px solid rgba(75, 46, 220, 0.1) !important;
+}
+
+.rank-table-cell {
+  font-weight: 700 !important;
+  color: #374151 !important;
+  font-size: 0.95rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px !important;
+  border: none !important;
+}
+
+.rank-table-row {
+  border-bottom: 1px solid rgba(75, 46, 220, 0.08) !important;
+  transition: all 0.2s ease;
+}
+
+.rank-table-row:hover {
+  background-color: rgba(75, 46, 220, 0.03) !important;
+  transform: scale(1.01);
+}
+
+/* ============ RANK BADGE ============ */
+.rank-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(75, 46, 220, 0.05) 0%, rgba(106, 76, 243, 0.05) 100%);
+  border-radius: 12px;
+  margin: 0 auto;
+}
+
+.rank-number {
+  font-size: 1.3rem !important;
+  font-weight: 900 !important;
+  margin: 0 !important;
+}
+
+/* ============ PLAYER INFO ============ */
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-name {
+  font-size: 1rem !important;
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.rating-value {
+  font-size: 1.1rem !important;
+  color: #4b2edc !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-wins {
+  font-size: 1rem !important;
+  color: #10b981 !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+.stat-losses {
+  font-size: 1rem !important;
+  color: #ef4444 !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+.win-rate {
+  font-size: 1rem !important;
+  color: #059669 !important;
+  font-weight: 800 !important;
+  margin: 0 !important;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ RESPONSIVE DESIGN ============ */
+@media (max-width: 1024px) {
+  .rank-header-content {
+    gap: 16px;
+    padding: 24px 32px !important;
+  }
+
+  .rank-title {
+    font-size: 1.6rem !important;
+  }
+
+  .rank-table-cell {
+    padding: 12px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .player-info {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rank-container {
+    padding-top: 60px;
+  }
+
+  .rank-header {
+    margin-bottom: 32px;
+  }
+
+  .rank-header-content {
+    padding: 20px 16px !important;
+    gap: 12px;
+  }
+
+  .rank-title {
+    font-size: 1.4rem !important;
+  }
+
+  .rank-subtitle {
+    font-size: 0.8rem !important;
+  }
+
+  .rank-table-cell {
+    padding: 10px 8px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .rank-badge {
+    width: 45px;
+    height: 45px;
+  }
+
+  .rank-number {
+    font-size: 1.1rem !important;
+  }
+
+  .player-info {
+    gap: 8px;
+  }
+
+  .player-name {
+    font-size: 0.9rem !important;
+  }
+
+  .rating-value {
+    font-size: 0.95rem !important;
+  }
+
+  .stat-wins,
+  .stat-losses,
+  .win-rate {
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .rank-container {
+    padding-top: 56px;
+    padding-bottom: 20px;
+  }
+
+  .rank-header {
+    margin-bottom: 24px;
+  }
+
+  .rank-header-content {
+    padding: 16px 12px !important;
+    gap: 8px;
+  }
+
+  .rank-title {
+    font-size: 1.2rem !important;
+  }
+
+  .rank-subtitle {
+    font-size: 0.75rem !important;
+  }
+
+  .rank-table-cell {
+    padding: 8px 6px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .rank-badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .rank-number {
+    font-size: 1rem !important;
+  }
+
+  .player-info {
+    gap: 6px;
+  }
+
+  .player-info Avatar {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 1.3rem !important;
+  }
+
+  .player-name {
+    font-size: 0.8rem !important;
+  }
+
+  .rating-value,
+  .stat-wins,
+  .stat-losses,
+  .win-rate {
+    font-size: 0.8rem !important;
+  }
+}

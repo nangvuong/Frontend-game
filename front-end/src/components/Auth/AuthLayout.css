@@ -1,6 +1,6 @@
 /* ============ AUTH CONTAINER ============ */
 .auth-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 40px);
   background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
   display: flex;
   align-items: center;

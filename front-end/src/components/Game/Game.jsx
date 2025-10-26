@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import GameStart from "./GameStart";
 import TopBar from "./TopBar";
@@ -6,9 +7,26 @@ import GameBoard from "./GameBoard";
 import GameOverModal from "./GameOverModal";
 import GameEnd from "./GameEnd";
 import "./Game.css";
+import { nav } from "framer-motion/client";
+
+// Array of 10 words with their hint images for each round
+const GAME_WORDS = [
+  { word: "VITE", image: "https://vitejs.dev/logo.svg" },
+  { word: "REACT", image: "https://react.dev/images/og-home.png" },
+  { word: "JAVASCRIPT", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/1200px-Unofficial_JavaScript_logo_2.svg.png" },
+  { word: "DESIGN", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400" },
+  { word: "CREATE", image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400" },
+  { word: "PUZZLE", image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400" },
+  { word: "GAMING", image: "https://images.unsplash.com/photo-1538481143235-5d8333846fbb?w=400" },
+  { word: "PLAYER", image: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400" },
+  { word: "WINNER", image: "https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400" },
+  { word: "BATTLE", image: "https://images.unsplash.com/photo-1538481143235-5d8333846fbb?w=400" }
+];
 
 export default function Game() {
-  const [word, setWord] = useState("vite");
+  const navigate = useNavigate();
+  const { currentUser, opponent } = location.state || {};
+  
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
@@ -62,7 +80,7 @@ export default function Game() {
 
   const handleHome = () => {
     // Navigate to home page
-    window.location.href = "/";
+    navigate('/') ;
   };
 
   const handleRefreshCharacters = () => {
@@ -94,6 +112,8 @@ export default function Game() {
             currentRound={currentRound} 
             myPoint={myPoint} 
             opponentPoints={opponentPoints}
+            currentUser={currentUser}
+            opponent={opponent}
             onRefresh={handleRefreshCharacters}
             onExit={handleExitGame}
             isGameOver={isGameOver}
@@ -102,7 +122,13 @@ export default function Game() {
 
           {/* --- Khu vực sắp xếp chữ + Game Over Modal --- */}
           {!isGameOver ? (
-            <GameBoard ref={gameBoardRef} key={gameKey} onGameOver={handleGameOver} word={word} />
+            <GameBoard 
+              ref={gameBoardRef} 
+              key={gameKey} 
+              onGameOver={handleGameOver} 
+              word={GAME_WORDS[currentRound - 1].word.toLowerCase()} 
+              imageHint={GAME_WORDS[currentRound - 1].image}
+            />
           ) : (
             <GameOverModal 
               isOpen={isGameOver}

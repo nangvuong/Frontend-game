@@ -7,7 +7,7 @@ import { playClickCardSound, playWrongAnswerSound, playCorrectAnswerSound, playS
 
 
 
-const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
+const GameBoard = forwardRef(({ onGameOver, word, imageHint }, ref) => {
   const [scrambled, setScrambled] = useState(shuffleArray(word.split("")));
   const [selected, setSelected] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
@@ -115,7 +115,7 @@ const GameBoard = forwardRef(({ onGameOver, word }, ref) => {
       <Box className="letters-section">
         {/* --- Ảnh gợi ý --- */}
         <Box className="hint-box">
-            <img src="vite.svg" alt="developer" />
+            <img src={imageHint} alt="hint" onError={(e) => {e.target.src = "https://via.placeholder.com/150"}} />
         </Box>
 
         {/* --- Thẻ ký tự --- */}

@@ -12,10 +12,14 @@ import {
   loseGameSound 
 } from "../../utils/soundManager";
 
-export default function TopBar({ currentRound, myPoint, opponentPoints, onRefresh, onExit, isGameOver, correctCount }) {
+export default function TopBar({ currentRound, myPoint, opponentPoints, currentUser, opponent, onRefresh, onExit, isGameOver, correctCount }) {
   const [isMuted, setIsMuted] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showExitDialog, setShowExitDialog] = useState(false);
+
+  // Get player names from user/opponent objects, fallback to defaults
+  const myName = currentUser?.name || 'Bạn';
+  const opponentName = opponent?.name || 'Đối thủ';
 
   const handleMuteToggle = () => {
     setIsMuted(!isMuted);
@@ -88,7 +92,7 @@ export default function TopBar({ currentRound, myPoint, opponentPoints, onRefres
         <Divider orientation="vertical" variant="middle" flexItem />
 
         <Box className="player-card">
-            <Typography className="player-label">Bạn</Typography>
+            <Typography className="player-label">{myName}</Typography>
             <Box className="player-stats">
                 <FaStar className="star-icon" />
                 <Typography className="points">{myPoint}</Typography>
@@ -105,7 +109,7 @@ export default function TopBar({ currentRound, myPoint, opponentPoints, onRefres
         <Divider orientation="vertical" variant="middle" flexItem />
 
         <Box className="opponent-card">
-            <Typography className="opponent-label">Đối thủ</Typography>
+            <Typography className="opponent-label">{opponentName}</Typography>
             <Box className="opponent-stats">
                 <FaStar className="star-icon" />
                 <Typography className="points">{opponentPoints}</Typography>

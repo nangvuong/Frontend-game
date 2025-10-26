@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, List, ListItemAvatar, ListItem, Badge, Avatar, ListItemText, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import WordScrambleDisplay from './WordScrambleDisplay';
@@ -6,7 +7,8 @@ import ChallengeResponse from './ChallengeResponse';
 import ChallengeSendConfirmation from './ChallengeSendConfirmation';
 import './Home.css';
 
-export default function Home() {
+export default function Home({ user }) {
+  const navigate = useNavigate();
   const allPlayers = [
     { id: 1, name: 'Nguyễn Văn A', avatar: '👨', status: 'online', rating: 2500 },
     { id: 2, name: 'Trần Thị B', avatar: '👩', status: 'online', rating: 2300 },
@@ -30,8 +32,14 @@ export default function Home() {
 
   const handleAcceptChallenge = () => {
     console.log('Challenge accepted from:', incomingChallenge.name);
-    // TODO: Navigate to game or start game logic
     setIncomingChallenge(null);
+    // Navigate to game page with user and opponent info
+    navigate('/game', {
+      state: {
+        currentUser: user,
+        opponent: incomingChallenge
+      }
+    });
   };
 
   const handleRejectChallenge = () => {
@@ -49,11 +57,18 @@ export default function Home() {
     console.log('Challenge sent to:', player.name);
     setIsWaitingForResponse(true);
     // TODO: Send to backend via API/WebSocket
-    // Simulate response after 5 seconds (for demo)
+    // Simulate response after 2 seconds then navigate to game
     setTimeout(() => {
       setIsWaitingForResponse(false);
       setSelectedPlayerForChallenge(null);
-    }, 5000);
+      // Navigate to game page with user and opponent info
+      navigate('/game', {
+        state: {
+          currentUser: user,
+          opponent: player
+        }
+      });
+    }, 2000);
   };
 
   // Cancel challenge

@@ -40,7 +40,18 @@ export default function Login({ onLogin }) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // Giả sử đăng nhập thành công
-      onLogin?.(true);
+      const userData = {
+        id: 1,
+        name: username,
+        avatar: '👨',
+        rating: 2450,
+        totalGames: 156,
+        wins: 98,
+        losses: 58,
+        streak: 7,
+      };
+      
+      onLogin(true, userData);
       navigate("/");
     } catch (err) {
       setUsernameError("Đăng nhập thất bại. Vui lòng thử lại!");

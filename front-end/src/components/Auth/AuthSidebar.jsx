@@ -27,7 +27,7 @@ export default function AuthSidebar() {
 
       {/* Slogan */}
       <Typography className="auth-slogan">
-        Đăng nhập để bắt đầu trận đấu chữ đỉnh cao!
+        Cùng bạn bè bắt đầu trận đấu chữ đỉnh cao!
       </Typography>
     </Box>
   );
