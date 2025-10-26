@@ -368,8 +368,8 @@
 
 /* --- Ảnh gợi ý --- */
 .hint-box {
-  width: 280px;
-  height: 160px;
+  width: 360px;
+  height: 240px;
   border-radius: 14px;
   background-color: #6a4cf3;
   display: flex;
@@ -505,8 +505,8 @@
 /* Tablet */
 @media (max-width: 768px) {
   .hint-box {
-    width: 220px;
-    height: 130px;
+    width: 280px;
+    height: 180px;
   }
 
   .result-box,
@@ -524,8 +524,8 @@
 /* Mobile */
 @media (max-width: 480px) {
   .hint-box {
-    width: 160px;
-    height: 100px;
+    width: 200px;
+    height: 140px;
   }
 
   .result-box,

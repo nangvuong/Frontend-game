@@ -119,7 +119,7 @@ const GameBoard = forwardRef(({ onGameOver, word, imageHint }, ref) => {
         </Box>
 
         {/* --- Thẻ ký tự --- */}
-        <Stack direction="row" spacing={1.5} mb={3} justifyContent="center" flexWrap="wrap">
+        <Stack direction="row" spacing={1} mb={3} justifyContent="center" flexWrap="wrap">
             {Array.from({ length: word.length }).map((_, i) => {
             let boxClass = `result-box`;
             const correctChar = word.split("")[i]; // Lấy ký tự đúng
