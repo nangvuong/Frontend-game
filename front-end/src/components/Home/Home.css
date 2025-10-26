@@ -436,70 +436,59 @@
   width: 100%;
 }
 
-/* Word Letters Container */
-.word-letters-container {
-  animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
-}
-
-.word-letters {
+/* Start Words Display - Larger size for Home */
+.word-scramble-display .start-words-display {
   display: flex;
-  gap: 16px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.word-letter {
-  width: 60px;
-  height: 60px;
+.word-scramble-display .start-word-title {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: white;
-  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(75, 46, 220, 0.3);
-  letter-spacing: 2px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-direction: column;
+  gap: 28px;
 }
 
-.word-letter:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 12px 32px rgba(75, 46, 220, 0.4);
-}
-
-/* Scramble Letters Container */
-.scramble-letters-container {
-  animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
-}
-
-.scramble-letters {
+.word-scramble-display .start-word-letters {
   display: flex;
-  gap: 10px;
+  gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 400px;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.scramble-letter {
-  width: 48px;
-  height: 48px;
+.word-scramble-display .start-scramble-letters {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+
+.word-scramble-display .start-letter {
+  background: white;
+  color: #4b2edc;
+  font-weight: bold;
+  font-size: 2.5rem;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #4b2edc;
-  background: rgba(75, 46, 220, 0.1);
-  border: 2px solid rgba(75, 46, 220, 0.3);
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
 }
 
-.scramble-letter:hover {
-  background: rgba(75, 46, 220, 0.2);
-  border-color: rgba(75, 46, 220, 0.5);
-  transform: scale(1.1);
+.word-scramble-display .start-letter:hover {
+  transform: scale(1.1) translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Sync slogan animation with word letters */
+.word-scramble-display .auth-slogan {
+  animation: fadeInUp 1s ease-out 0.3s both !important;
 }
 
 /* Word Slogan */
@@ -555,6 +544,12 @@
   .home-right-column {
     min-height: 450px;
     width: 100%;
+  }
+
+  .word-scramble-display .start-letter {
+    width: 80px;
+    height: 80px;
+    font-size: 2.2rem;
   }
 
   .word-letter {
@@ -630,6 +625,12 @@
 
   .word-scramble-display {
     gap: 36px;
+  }
+
+  .word-scramble-display .start-letter {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
   }
 
   .word-letters {
@@ -736,6 +737,12 @@
 
   .word-scramble-display {
     gap: 28px;
+  }
+
+  .word-scramble-display .start-letter {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
   }
 
   .word-letters {
