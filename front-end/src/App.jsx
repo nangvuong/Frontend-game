@@ -3,6 +3,7 @@ import TopBar from './components/TopBar/TopBar'
 import ProtectedRoute from './components/ProtectedRoute'
 import Game from './components/Game/Game';
 import Home from './components/Home/Home';
+import Profile from './components/Profile/Profile';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import { BrowserRouter as Router } from "react-router-dom";
@@ -30,6 +31,12 @@ function App() {
           <Route path="/game" element={
             
               <Game />
+              
+           
+          } />
+          <Route path="/profile" element={
+            
+              <Profile />
               
            
           } />

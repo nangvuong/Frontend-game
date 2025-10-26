@@ -20,9 +20,29 @@ export default function ChallengeSendConfirmation({ player, isWaiting, onConfirm
           <Typography className="challenge-waiting-subtitle">
             từ {player.name}
           </Typography>
-          <Box className="challenge-waiting-info">
-            <span>⏱️ Chờ tối đa 30 giây</span>
-          </Box>
+          <Button
+            variant="outlined"
+            onClick={onCancel}
+            className="btn-reject"
+            sx={{
+              borderColor: '#ef4444',
+              color: '#ef4444',
+              fontWeight: '700',
+              fontSize: '1rem',
+              padding: '12px 24px',
+              borderRadius: '10px',
+              textTransform: 'none',
+              border: '2px solid #ef4444',
+              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              '&:hover': {
+                background: 'rgba(239, 68, 68, 0.08)',
+                borderColor: '#dc2626',
+                color: '#dc2626',
+              },
+            }}
+          >
+            ✕ Huỷ
+          </Button>
         </Box>
       ) : (
         // Confirmation before sending
@@ -31,12 +51,12 @@ export default function ChallengeSendConfirmation({ player, isWaiting, onConfirm
             {player.avatar}
           </Box>
           <Box className="challenge-text">
-            <p className="challenge-title">
+            <Typography variant="h6" fontWeight={"bold"} className="challenge-title">
               Thách đấu {player.name}?
-            </p>
-            <p className="challenge-rating">
+            </Typography>
+            <Typography variant="body1" fontWeight={"bold"} className="challenge-rating">
               Rating: {player.rating}
-            </p>
+            </Typography>
           </Box>
         </Box>
       )}
@@ -68,7 +88,7 @@ export default function ChallengeSendConfirmation({ player, isWaiting, onConfirm
               },
             }}
           >
-            ✓ Gửi thách đấu
+            ✓ Thách đấu
           </Button>
 
           <Button
@@ -93,7 +113,7 @@ export default function ChallengeSendConfirmation({ player, isWaiting, onConfirm
               },
             }}
           >
-            ✕ Hủy
+            ✕ Huỷ
           </Button>
         </Box>
       )}

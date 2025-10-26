@@ -1,4 +1,4 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 export default function ChallengeResponse({ challenge, onAccept, onReject }) {
   return (
@@ -8,12 +8,12 @@ export default function ChallengeResponse({ challenge, onAccept, onReject }) {
           {challenge.avatar}
         </Box>
         <Box className="challenge-text">
-          <p className="challenge-title">
+          <Typography variant="h6" fontWeight={"bold"} className="challenge-title">
             {challenge.name} muốn thách đấu với bạn!
-          </p>
-          <p className="challenge-rating">
+          </Typography>
+          <Typography variant="body2" fontWeight={"bold"} className="challenge-rating">
             Rating: {challenge.rating}
-          </p>
+          </Typography>
         </Box>
       </Box>
 

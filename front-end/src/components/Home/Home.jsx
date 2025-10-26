@@ -8,19 +8,19 @@ import './Home.css';
 
 export default function Home() {
   const allPlayers = [
-    { id: 1, name: 'Nguyễn Văn A', avatar: 'NA', status: 'online', rating: 2500 },
-    { id: 2, name: 'Trần Thị B', avatar: 'TB', status: 'online', rating: 2300 },
-    { id: 3, name: 'Phạm Văn C', avatar: 'PC', status: 'playing', rating: 2100 },
-    { id: 4, name: 'Lê Thị D', avatar: 'LD', status: 'online', rating: 1950 },
-    { id: 5, name: 'Hoàng Văn E', avatar: 'HE', status: 'offline', rating: 1800 },
-    { id: 6, name: 'Đặng Thị F', avatar: 'DF', status: 'online', rating: 2200 },
-    { id: 7, name: 'Vũ Văn G', avatar: 'VG', status: 'playing', rating: 2050 },
-    { id: 8, name: 'Bùi Thị H', avatar: 'BH', status: 'online', rating: 1900 },
-    { id: 9, name: 'Cao Văn I', avatar: 'CI', status: 'offline', rating: 1750 },
+    { id: 1, name: 'Nguyễn Văn A', avatar: '👨', status: 'online', rating: 2500 },
+    { id: 2, name: 'Trần Thị B', avatar: '👩', status: 'online', rating: 2300 },
+    { id: 3, name: 'Phạm Văn C', avatar: '🧔', status: 'playing', rating: 2100 },
+    { id: 4, name: 'Lê Thị D', avatar: '👨‍💼', status: 'online', rating: 1950 },
+    { id: 5, name: 'Hoàng Văn E', avatar: '🧔', status: 'offline', rating: 1800 },
+    { id: 6, name: 'Đặng Thị F', avatar: '👨‍💼', status: 'online', rating: 2200 },
+    { id: 7, name: 'Vũ Văn G', avatar: '🧔', status: 'playing', rating: 2050 },
+    { id: 8, name: 'Bùi Thị H', avatar: '👨‍💼', status: 'online', rating: 1900 },
+    { id: 9, name: 'Cao Văn I', avatar: '👨‍💼', status: 'offline', rating: 1750 },
   ];
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [incomingChallenge, setIncomingChallenge] = useState({ id: 9, name: 'Cao Văn I', avatar: 'CI', status: 'offline', rating: 1750 });
+  const [incomingChallenge, setIncomingChallenge] = useState({ id: 9, name: 'Cao Văn I', avatar: '👨‍💼', status: 'offline', rating: 1750 });
   const [selectedPlayerForChallenge, setSelectedPlayerForChallenge] = useState(null);
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
 
