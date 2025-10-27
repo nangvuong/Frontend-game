@@ -66,7 +66,7 @@ export default function ChallengeSendConfirmation({ player, isWaiting, onConfirm
           <Button
             variant="contained"
             fullWidth
-            onClick={onConfirm}
+            onClick={() => onConfirm(player)}
             className="btn-accept"
             sx={{
               background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',

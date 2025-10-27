@@ -41,18 +41,21 @@ export default function Login({ onLogin }) {
         username: username.trim(),
         password: password.trim(),
       });
-      // Lưu token vào localStorage
+
+
       if (response.data.token) {
         localStorage.setItem("accessToken", response.data.token);
       }
-      // Lưu thông tin user
+
       const userData = response.data.user;
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      userData.avatar = "👨";
+
       onLogin(true, userData);
+
+      // Navigate về trang chủ
       navigate("/");
     } catch (err) {
-      setUsernameError("Đăng nhập thất bại. Vui lòng thử lại!");
+      console.error("❌ Login error:", err);
+      setUsernameError(err.message || "Đăng nhập thất bại");
     } finally {
       setLoading(false);
     }

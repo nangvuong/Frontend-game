@@ -52,6 +52,29 @@ export const authAPI = {
 
 export const userAPI = {
   profile: () => apiClient.get("/users/profile"),
-  updateProfile : (data) => apiClient.put("/users/profile", data),
+  updateProfile: (data) => apiClient.put("/users/profile", data),
   getUsers: () => apiClient.get("/users/list-users"),
-}
+};
+export const challengeAPI = {
+  // Gửi lời thách đấu
+  sendChallenge: (challengedId, message = "") =>
+    apiClient.post("/challenges/send", {
+      challengedId,
+      message,
+    }),
+ 
+  // Chấp nhận thách đấu
+  acceptChallenge: (challengeId) =>
+    apiClient.post(`/challenges/${challengeId}/accept`),
+
+  // Từ chối thách đấu
+  rejectChallenge: (challengeId) =>
+    apiClient.post(`/challenges/${challengeId}/reject`),
+
+  // Hủy thách đấu
+  cancelChallenge: (challengeId) =>
+    apiClient.post(`/challenges/${challengeId}/cancel`),
+
+  // Lấy danh sách thách đấu đang chờ
+  getPendingChallenges: () => apiClient.get("/challenges/pending"),
+};
