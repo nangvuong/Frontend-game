@@ -78,3 +78,8 @@ export const challengeAPI = {
   // Lấy danh sách thách đấu đang chờ
   getPendingChallenges: () => apiClient.get("/challenges/pending"),
 };
+
+export const matchAPI = {
+  // Ready
+  readyMatch: (matchId) => apiClient.post(`/matches/${matchId}/ready`),
+}
