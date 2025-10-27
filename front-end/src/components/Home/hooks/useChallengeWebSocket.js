@@ -9,7 +9,6 @@ export const useChallengeWebSocket = (user) => {
 
   // Handle challenge notification
   const handleChallengeNotification = (message) => {
-    console.log('📨 Challenge notification:', message);
 
     switch (message.type) {
       case 'NEW_CHALLENGE':
@@ -57,7 +56,6 @@ export const useChallengeWebSocket = (user) => {
     if (!user?.id) return;
 
     connect(() => {
-      console.log('🔌 Challenge WebSocket connected');
       subscribe(`/queue/challenges/${user.id}`, handleChallengeNotification);
     });
 

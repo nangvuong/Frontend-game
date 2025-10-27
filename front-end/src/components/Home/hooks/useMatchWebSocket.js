@@ -14,7 +14,6 @@ export const useMatchWebSocket = (user) => {
 
   // Handle match notification
   const handleMatchNotification = (message) => {
-    console.log('📨 Match notification:', message);
 
     switch (message.type) {
       case 'MATCH_CREATED':
@@ -29,7 +28,6 @@ export const useMatchWebSocket = (user) => {
         setIsReady(false);
         setOpponentReady(false);
 
-        console.log('✅ Ready popup opened');
         break;
 
       case 'OPPONENT_READY':
@@ -43,7 +41,6 @@ export const useMatchWebSocket = (user) => {
     if (!user?.id) return;
 
     connect(() => {
-      console.log('🔌 Match WebSocket connected');
       subscribe(`/queue/matches/${user.id}`, handleMatchNotification);
     });
 
@@ -60,10 +57,8 @@ export const useMatchWebSocket = (user) => {
     const destination = `/topic/match/${currentMatch.id}`;
 
     subscribe(destination, (message) => {
-      console.log('📨 Match topic message:', message);
 
       if (message.type === 'MATCH_START') {
-        console.log('🚀 Match started! Navigating to game...');
 
         setTimeout(() => {
           navigate('/game', {

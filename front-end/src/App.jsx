@@ -85,19 +85,16 @@ function App() {
       const token = localStorage.getItem("accessToken");
 
       if (!token) {
-        console.log("⚠️ No token found, user needs to login");
         setLoading(false);
         return;
       }
 
       try {
-        console.log("🔄 Restoring session...");
         
         // Gọi API để lấy thông tin user hiện tại từ token
         const response = await userAPI.profile();
 
         if (response.success && response.data) {
-          console.log("✅ Session restored:", response.data);
           setUser(response.data);
           setIsLoggedIn(true);
         }
@@ -120,7 +117,6 @@ function App() {
   const handleLogin = (status, userData = null) => {
     setIsLoggedIn(status);
     if (userData) {
-      console.log("👤 User logged in:", userData);
       setUser(userData);
     }
   };
@@ -128,12 +124,10 @@ function App() {
   // ⚠️ HANDLE LOGOUT - GỌI API VÀ XÓA STATE
   const handleLogout = async () => {
     try {
-      console.log("🚪 Logging out...");
       
       // Gọi API logout
       await authAPI.logout();
       
-      console.log("✅ Logout API success");
     } catch (error) {
       console.error("❌ Logout API error:", error);
       // Vẫn tiếp tục logout ở frontend dù API lỗi
@@ -143,7 +137,6 @@ function App() {
       setIsLoggedIn(false);
       setUser(null);
       
-      console.log("✅ Logged out successfully");
     }
   };
 

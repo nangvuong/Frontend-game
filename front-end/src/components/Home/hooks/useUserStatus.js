@@ -52,7 +52,6 @@ export const useUserStatus = () => {
     fetchOnlineUsers();
 
     connect(() => {
-      console.log('🔌 User status WebSocket connected');
       subscribe('/topic/users/status', handleUserStatusChange);
     });
 

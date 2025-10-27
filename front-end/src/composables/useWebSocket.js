@@ -11,7 +11,6 @@ export const useWebSocket = () => {
   // Kết nối WebSocket
   const connect = useCallback((onConnected) => {
     if (clientRef.current?.active) {
-      console.log("WebSocket already connected");
       return;
     }
 
@@ -33,14 +32,12 @@ export const useWebSocket = () => {
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
-        console.log("✅ WebSocket Connected");
         onConnected?.();
       },
       onStompError: (frame) => {
         console.error("❌ STOMP Error:", frame);
       },
       onWebSocketClose: () => {
-        console.log("🔌 WebSocket Closed");
       },
     });
 
@@ -53,7 +50,6 @@ export const useWebSocket = () => {
       clientRef.current.deactivate();
       clientRef.current = null;
       subscribersRef.current = {};
-      console.log("🔌 WebSocket Disconnected");
     }
   }, []);
 
@@ -74,7 +70,6 @@ export const useWebSocket = () => {
     });
 
     subscribersRef.current[destination] = subscription;
-    console.log(`📡 Subscribed to: ${destination}`);
 
     return subscription;
   }, []);
@@ -84,7 +79,6 @@ export const useWebSocket = () => {
     if (subscription) {
       subscription.unsubscribe();
       delete subscribersRef.current[destination];
-      console.log(`📴 Unsubscribed from: ${destination}`);
     }
   }, []);
   // Send message

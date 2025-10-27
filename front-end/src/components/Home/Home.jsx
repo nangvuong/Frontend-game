@@ -92,15 +92,12 @@ export default function Home({ user }) {
 
   const handleReady = async () => {
     try {
-      console.log('🎯 Setting ready for match:', currentMatch.id);
 
       const response = await matchAPI.readyMatch(currentMatch.id);
-      console.log('✅ Ready response:', response);
 
       setIsReady(true);
 
       if (response.data.status === 'IN_PROGRESS') {
-        console.log('🎮 Both players ready! Starting game...');
       }
     } catch (err) {
       console.error('❌ Error setting ready:', err);
