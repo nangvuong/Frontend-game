@@ -7,32 +7,48 @@ import {
   Avatar,
   Button,
   Stack,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import {
   EditOutlined,
   EmojiEventsOutlined,
-  LocalFireDepartmentOutlined,
   HandshakeOutlined,
   TrendingUpOutlined,
 } from '@mui/icons-material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EditProfile from './EditProfile';
+import { userAPI } from '../../composables/useAPI';
 import './Profile.css';
 
-export default function Profile({ user }) {
-  // Use user data from props if available, otherwise use demo data
-  const [userData, setUserData] = useState(user || {
-    id: 1,
-    name: 'Vương',
-    avatar: '👨',
-    rating: 2450,
-    totalGames: 156,
-    wins: 98,
-    losses: 58,
-    streak: 7,
-  });
-
+export default function Profile() {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [isEditOpen, setIsEditOpen] = useState(false);
+
+  // Fetch user profile khi component mount
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const response = await userAPI.profile();
+      
+      if (response.success) {
+        setUserData(response.data);
+      }
+    } catch (err) {
+      console.log(err);
+      console.error('Lỗi khi tải thông tin profile:', err);
+      setError('Không thể tải thông tin profile. Vui lòng thử lại!');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEditClick = () => {
     setIsEditOpen(true);
@@ -42,14 +58,68 @@ export default function Profile({ user }) {
     setIsEditOpen(false);
   };
 
-  const handleSave = (formData) => {
-    setUserData({
-      ...userData,
-      name: formData.name,
-      avatar: formData.avatar,
-    });
-    setIsEditOpen(false);
+  const handleSave = async (formData) => {
+    try {
+      const response = await userAPI.updateProfile({
+        fullName: formData.name,
+        avatar: formData.avatar,
+      });
+
+      if (response.success) {
+        setUserData(response.data);
+        setIsEditOpen(false);
+      }
+    } catch (err) {
+      console.error('Lỗi khi cập nhật profile:', err);
+      alert('Cập nhật thất bại. Vui lòng thử lại!');
+    }
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh' 
+        }}
+      >
+        <CircularProgress size={60} />
+      </Box>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <Container maxWidth="lg" sx={{ marginTop: '40px' }}>
+        <Alert severity="error">{error}</Alert>
+        <Button 
+          variant="contained" 
+          onClick={fetchUserProfile}
+          sx={{ marginTop: 2 }}
+        >
+          Thử lại
+        </Button>
+      </Container>
+    );
+  }
+
+  // No data state
+  if (!userData) {
+    return (
+      <Container maxWidth="lg" sx={{ marginTop: '40px' }}>
+        <Alert severity="warning">Không tìm thấy thông tin người dùng</Alert>
+      </Container>
+    );
+  }
+
+  // Calculate win rate
+  const winRate = userData.totalMatches > 0 
+    ? Math.round((userData.totalWins / userData.totalMatches) * 100) 
+    : 0;
 
   return (
     <Box className="profile-container">
@@ -74,16 +144,25 @@ export default function Profile({ user }) {
                     }
                   }}
                 >
-                  {userData.avatar}
+                  {userData.avatar || '👤'}
                 </Avatar>
               </Box>
 
               <Box className="profile-center">
                 <Typography className="profile-name">
-                  {userData.name}
+                  {userData.fullName || userData.username}
                 </Typography>
                 <Typography className="rating-value">
-                  {userData.rating}
+                  {userData.totalScore || 0}
+                </Typography>
+                <Typography 
+                  sx={{ 
+                    color: userData.status === 'ONLINE' ? '#10b981' : '#6b7280',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                  }}
+                >
+                  {userData.status === 'ONLINE' ? '🟢 Đang online' : '⚫ Offline'}
                 </Typography>
               </Box>
 
@@ -121,7 +200,7 @@ export default function Profile({ user }) {
           <Card className="stat-card" sx={{ flex: 1 }}>
             <CardContent className="stat-content">
               <HandshakeOutlined sx={{ fontSize: '2rem', color: '#4b2edc' }} />
-              <Typography className="stat-value">{userData.totalGames}</Typography>
+              <Typography className="stat-value">{userData.totalMatches || 0}</Typography>
               <Typography className="stat-label">Tổng trận</Typography>
             </CardContent>
           </Card>
@@ -129,23 +208,15 @@ export default function Profile({ user }) {
           <Card className="stat-card" sx={{ flex: 1 }}>
             <CardContent className="stat-content">
               <EmojiEventsOutlined sx={{ fontSize: '2rem', color: '#10b981' }} />
-              <Typography className="stat-value">{userData.wins}</Typography>
+              <Typography className="stat-value">{userData.totalWins || 0}</Typography>
               <Typography className="stat-label">Chiến thắng</Typography>
             </CardContent>
           </Card>
           
           <Card className="stat-card" sx={{ flex: 1 }}>
             <CardContent className="stat-content">
-              <LocalFireDepartmentOutlined sx={{ fontSize: '2rem', color: '#f59e0b' }} />
-              <Typography className="stat-value">{userData.streak}</Typography>
-              <Typography className="stat-label">Chuỗi hiện tại</Typography>
-            </CardContent>
-          </Card>
-          
-          <Card className="stat-card" sx={{ flex: 1 }}>
-            <CardContent className="stat-content">
               <TrendingUpOutlined sx={{ fontSize: '2rem', color: '#059669' }} />
-              <Typography className="stat-value">{Math.round((userData.wins / userData.totalGames) * 100)}%</Typography>
+              <Typography className="stat-value">{winRate}%</Typography>
               <Typography className="stat-label">Tỷ lệ thắng</Typography>
             </CardContent>
           </Card>
@@ -155,7 +226,11 @@ export default function Profile({ user }) {
       {/* Edit Profile Modal */}
       {isEditOpen && (
         <EditProfile 
-          userData={userData} 
+          userData={{
+            id: userData.id,
+            name: userData.fullName || userData.username,
+            avatar: userData.avatar || '👤',
+          }}
           onClose={handleEditClose}
           onSave={handleSave}
         />

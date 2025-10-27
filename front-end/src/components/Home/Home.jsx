@@ -1,44 +1,110 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, List, ListItemAvatar, ListItem, Badge, Avatar, ListItemText, TextField, InputAdornment } from '@mui/material';
+import {
+  Box,
+  List,
+  ListItemAvatar,
+  ListItem,
+  Badge,
+  Avatar,
+  ListItemText,
+  TextField,
+  InputAdornment,
+  CircularProgress,
+  Alert,
+} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import WordScrambleDisplay from './WordScrambleDisplay';
 import ChallengeResponse from './ChallengeResponse';
 import ChallengeSendConfirmation from './ChallengeSendConfirmation';
+import { userAPI } from '../../composables/useAPI';
 import './Home.css';
 
 export default function Home({ user }) {
   const navigate = useNavigate();
-  const allPlayers = [
-    { id: 1, name: 'Nguyễn Văn A', avatar: '👨', status: 'online', rating: 2500 },
-    { id: 2, name: 'Trần Thị B', avatar: '👩', status: 'online', rating: 2300 },
-    { id: 3, name: 'Phạm Văn C', avatar: '🧔', status: 'playing', rating: 2100 },
-    { id: 4, name: 'Lê Thị D', avatar: '👨‍💼', status: 'online', rating: 1950 },
-    { id: 5, name: 'Hoàng Văn E', avatar: '🧔', status: 'offline', rating: 1800 },
-    { id: 6, name: 'Đặng Thị F', avatar: '👨‍💼', status: 'online', rating: 2200 },
-    { id: 7, name: 'Vũ Văn G', avatar: '🧔', status: 'playing', rating: 2050 },
-    { id: 8, name: 'Bùi Thị H', avatar: '👨‍💼', status: 'online', rating: 1900 },
-    { id: 9, name: 'Cao Văn I', avatar: '👨‍💼', status: 'offline', rating: 1750 },
-  ];
-
+  const [allPlayers, setAllPlayers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [incomingChallenge, setIncomingChallenge] = useState({ id: 9, name: 'Cao Văn I', avatar: '👨‍💼', status: 'offline', rating: 1750 });
+  const [incomingChallenge, setIncomingChallenge] = useState(null);
   const [selectedPlayerForChallenge, setSelectedPlayerForChallenge] = useState(null);
   const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+
+  // Fetch danh sách users khi component mount
+  useEffect(() => {
+    fetchOnlineUsers();
+  }, []);
+
+  const fetchOnlineUsers = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const response = await userAPI.getUsers();
+      
+      if (response.success && response.data) {
+        // Map data từ backend sang format frontend
+        const players = response.data.map((user) => ({
+          id: user.id,
+          name: user.fullName || user.username,
+          avatar: user.avatar || '👤',
+          status: user.status, // ONLINE, IN_GAME, OFFLINE
+          rating: user.totalScore || 0,
+          username: user.username,
+        }));
+        
+        setAllPlayers(players);
+      }
+    } catch (err) {
+      console.error('Error fetching users:', err);
+      setError(err.message || 'Không thể tải danh sách người chơi');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredPlayers = allPlayers.filter((player) =>
     player.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Map status từ backend sang badge color
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'ONLINE':
+        return 'success'; // Xanh lá
+      case 'IN_GAME':
+        return 'warning'; // Vàng
+      case 'OFFLINE':
+        return 'error'; // Đỏ
+      default:
+        return 'default';
+    }
+  };
+
+  // Map status sang text hiển thị
+  const getStatusText = (status) => {
+    switch (status) {
+      case 'ONLINE':
+        return 'Trực tuyến';
+      case 'IN_GAME':
+        return 'Đang chơi';
+      case 'OFFLINE':
+        return 'Ngoại tuyến';
+      default:
+        return 'Không rõ';
+    }
+  };
+
+  // Chỉ cho phép thách đấu user ONLINE
+  const canChallenge = (player) => player.status === 'ONLINE';
+
   const handleAcceptChallenge = () => {
     console.log('Challenge accepted from:', incomingChallenge.name);
     setIncomingChallenge(null);
-    // Navigate to game page with user and opponent info
     navigate('/game', {
       state: {
         currentUser: user,
-        opponent: incomingChallenge
-      }
+        opponent: incomingChallenge,
+      },
     });
   };
 
@@ -47,31 +113,28 @@ export default function Home({ user }) {
     setIncomingChallenge(null);
   };
 
-  // When player is clicked, select them for challenge
   const handleSimulateChallenge = (player) => {
-    setSelectedPlayerForChallenge(player);
+    if (canChallenge(player)) {
+      setSelectedPlayerForChallenge(player);
+    }
   };
 
-  // Send challenge and wait for response
   const handleSendChallenge = (player) => {
     console.log('Challenge sent to:', player.name);
     setIsWaitingForResponse(true);
-    // TODO: Send to backend via API/WebSocket
-    // Simulate response after 2 seconds then navigate to game
+    // TODO: Implement challengeAPI.sendChallenge()
     setTimeout(() => {
       setIsWaitingForResponse(false);
       setSelectedPlayerForChallenge(null);
-      // Navigate to game page with user and opponent info
       navigate('/game', {
         state: {
           currentUser: user,
-          opponent: player
-        }
+          opponent: player,
+        },
       });
     }, 2000);
   };
 
-  // Cancel challenge
   const handleCancelChallenge = () => {
     setSelectedPlayerForChallenge(null);
     setIsWaitingForResponse(false);
@@ -88,6 +151,7 @@ export default function Home({ user }) {
             placeholder="Tìm kiếm người chơi..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            disabled={loading}
             className="search-field"
             InputProps={{
               startAdornment: (
@@ -117,43 +181,75 @@ export default function Home({ user }) {
           />
         </Box>
 
+        {/* Loading State */}
+        {loading && (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '400px',
+            }}
+          >
+            <CircularProgress sx={{ color: '#4b2edc' }} />
+          </Box>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <Box sx={{ p: 2 }}>
+            <Alert severity="error" onClose={() => setError('')}>
+              {error}
+            </Alert>
+          </Box>
+        )}
+
         {/* Players List */}
-        {filteredPlayers.length > 0 ? (
+        {!loading && !error && filteredPlayers.length > 0 ? (
           <Box className="players-list-container">
             <List className="players-list">
               {filteredPlayers.map((player) => (
                 <ListItem
                   key={player.id}
-                  className={`player-list-item ${player.status !== 'online' ? 'player-disabled' : ''}`}
-                  onClick={() => player.status === 'online' && handleSimulateChallenge(player)}
-                  sx={{ cursor: player.status === 'online' ? 'pointer' : 'not-allowed' }}
+                  className={`player-list-item ${
+                    !canChallenge(player) ? 'player-disabled' : ''
+                  }`}
+                  onClick={() => handleSimulateChallenge(player)}
+                  sx={{
+                    cursor: canChallenge(player) ? 'pointer' : 'not-allowed',
+                    opacity: canChallenge(player) ? 1 : 0.6,
+                  }}
                 >
                   <ListItemAvatar>
                     <Badge
                       overlap="circular"
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                       variant="dot"
-                      color={
-                        player.status === 'online'
-                          ? 'success'
-                          : player.status === 'playing'
-                          ? 'warning'
-                          : 'error'
-                      }
+                      color={getStatusColor(player.status)}
                     >
                       <Avatar className="player-avatar">{player.avatar}</Avatar>
                     </Badge>
                   </ListItemAvatar>
-                  <ListItemText primary={player.name} secondary={player.rating} />
+                  <ListItemText
+                    primary={player.name}
+                    secondary={
+                      <Box>
+                        <Box>Rating: {player.rating}</Box>
+                        <Box sx={{ fontSize: '0.75rem', color: 'text.secondary' }}>
+                          {getStatusText(player.status)}
+                        </Box>
+                      </Box>
+                    }
+                  />
                 </ListItem>
               ))}
             </List>
           </Box>
-        ) : (
+        ) : !loading && !error ? (
           <Box className="no-results">
             <span>😕 Không tìm thấy người chơi nào</span>
           </Box>
-        )}
+        ) : null}
       </Box>
 
       {/* Right Column - Word Scramble Display or Challenge Response */}

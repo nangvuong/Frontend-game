@@ -9,14 +9,17 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../Auth/AuthLayout";
+import { authAPI } from "../../composables/useAPI";
 import "./AuthForm.css";
 
 export default function Register({ onRegister }) {
   const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [usernameError, setUsernameError] = useState("");
+  const [fullNameError, setFullNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const navigate = useNavigate();
@@ -24,6 +27,7 @@ export default function Register({ onRegister }) {
   const handleRegister = async (e) => {
     e.preventDefault();
     setUsernameError("");
+    setFullNameError("");
     setPasswordError("");
     setConfirmPasswordError("");
 
@@ -34,6 +38,10 @@ export default function Register({ onRegister }) {
     }
     if (username.trim().length < 3) {
       setUsernameError("Tên đăng nhập phải có ít nhất 3 ký tự");
+      return;
+    }
+    if (!fullName.trim()) {
+      setFullNameError("Vui lòng nhập họ và tên");
       return;
     }
     if (!password.trim()) {
@@ -55,14 +63,38 @@ export default function Register({ onRegister }) {
 
     setLoading(true);
     try {
-      // Simulate register - Thay bằng API call thực tế
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // Gọi API register
+      const response = await authAPI.register({
+        username: username.trim(),
+        fullName: fullName.trim(),
+        password: password.trim(),
+      });
 
-      // Giả sử đăng ký thành công
-      onRegister?.(true);
+      // Lưu token vào localStorage
+      if (response.data.token) {
+        localStorage.setItem("accessToken", response.data.token);
+      }
+
+      // Lưu thông tin user
+      const userData = response.data.user;
+
+      // Gọi callback onRegister với thông tin user
+      onRegister?.(true, userData);
+      
+      // Chuyển hướng về trang chủ
       navigate("/");
     } catch (err) {
-      setUsernameError("Đăng ký thất bại. Vui lòng thử lại!");
+      console.error("Register error:", err);
+      
+      // Xử lý lỗi từ backend
+      const errorMessage = err.message || "Đăng ký thất bại. Vui lòng thử lại!";
+      
+      // Nếu lỗi về username đã tồn tại
+      if (errorMessage.includes("Username") || errorMessage.includes("tồn tại")) {
+        setUsernameError(errorMessage);
+      } else {
+        setUsernameError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
@@ -89,6 +121,19 @@ export default function Register({ onRegister }) {
               size="medium"
               error={!!usernameError}
               helperText={usernameError}
+            />
+
+            {/* Full Name Field */}
+            <TextField
+              fullWidth
+              placeholder="Họ và tên"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              disabled={loading}
+              variant="outlined"
+              size="medium"
+              error={!!fullNameError}
+              helperText={fullNameError}
             />
 
             {/* Password Field */}

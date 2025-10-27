@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../Auth/AuthLayout";
+import { authAPI } from "../../composables/useAPI";
 import "./AuthForm.css";
 
 export default function Login({ onLogin }) {
@@ -36,21 +37,18 @@ export default function Login({ onLogin }) {
 
     setLoading(true);
     try {
-      // Simulate login - Thay bằng API call thực tế
+      const response = await authAPI.login({
+        username: username.trim(),
+        password: password.trim(),
+      });
+      // Lưu token vào localStorage
+      if (response.data.token) {
+        localStorage.setItem("accessToken", response.data.token);
+      }
+      // Lưu thông tin user
+      const userData = response.data.user;
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Giả sử đăng nhập thành công
-      const userData = {
-        id: 1,
-        name: username,
-        avatar: '👨',
-        rating: 2450,
-        totalGames: 156,
-        wins: 98,
-        losses: 58,
-        streak: 7,
-      };
-      
+      userData.avatar = "👨";
       onLogin(true, userData);
       navigate("/");
     } catch (err) {
