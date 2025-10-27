@@ -62,7 +62,7 @@ export const challengeAPI = {
       challengedId,
       message,
     }),
- 
+
   // Chấp nhận thách đấu
   acceptChallenge: (challengeId) =>
     apiClient.post(`/challenges/${challengeId}/accept`),
@@ -82,4 +82,6 @@ export const challengeAPI = {
 export const matchAPI = {
   // Ready
   readyMatch: (matchId) => apiClient.post(`/matches/${matchId}/ready`),
-}
+  //  Cancel match
+  cancelMatch: (matchId) => apiClient.post(`/matches/${matchId}/cancel`),
+};

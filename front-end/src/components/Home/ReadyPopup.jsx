@@ -16,6 +16,7 @@ export default function ReadyPopup({
   currentUser, 
   opponent,
   onReady,
+  onCancel,
   isReady,
   opponentReady 
 }) {
@@ -35,6 +36,7 @@ export default function ReadyPopup({
       open={open}
       maxWidth="sm"
       fullWidth
+      disableEscapeKeyDown
       PaperProps={{
         sx: {
           borderRadius: 4,
@@ -93,7 +95,7 @@ export default function ReadyPopup({
                 variant="h6"
                 fontWeight="bold"
                 color="white"
-                mt={1}
+                sx={{ mt: 1 }}
               >
                 {currentUser?.fullName || currentUser?.username}
               </Typography>
@@ -101,7 +103,6 @@ export default function ReadyPopup({
                 {currentUser?.totalScore || 0} điểm
               </Typography>
               
-              {/* Ready Status */}
               {isReady && (
                 <Box
                   sx={{
@@ -142,21 +143,20 @@ export default function ReadyPopup({
                   margin: '0 auto',
                 }}
               >
-                {opponent?.avatar || opponent?.name?.charAt(0) || '👤'}
+                {opponent?.avatar || opponent?.fullName?.charAt(0) || '👤'}
               </Avatar>
               <Typography
                 variant="h6"
                 fontWeight="bold"
                 color="white"
-                mt={1}
+                sx={{ mt: 1 }}
               >
-                {opponent?.name || opponent?.username}
+                {opponent?.fullName || opponent?.username}
               </Typography>
               <Typography variant="body2" color="rgba(255,255,255,0.8)">
-                {opponent?.rating || 0} điểm
+                {opponent?.totalScore || 0} điểm
               </Typography>
 
-              {/* Ready Status */}
               {opponentReady && (
                 <Box
                   sx={{
@@ -229,12 +229,35 @@ export default function ReadyPopup({
             </Button>
           )}
 
+          {/* Cancel Button */}
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={onCancel}
+            sx={{
+              borderColor: '#ef4444',
+              color: 'white',
+              fontWeight: 'bold',
+              fontSize: '1rem',
+              padding: '12px',
+              borderRadius: 3,
+              textTransform: 'none',
+              border: '2px solid #ef4444',
+              '&:hover': {
+                background: 'rgba(239, 68, 68, 0.1)',
+                borderColor: '#dc2626',
+              },
+            }}
+          >
+            ✕ Hủy trận đấu
+          </Button>
+
           {/* Waiting Message */}
           {isReady && !opponentReady && (
             <Box sx={{ textAlign: 'center' }}>
               <CircularProgress sx={{ color: 'white', mb: 2 }} />
               <Typography variant="body1" color="white">
-                Đang chờ {opponent?.name}...
+                Đang chờ {opponent?.fullName || opponent?.username}...
               </Typography>
             </Box>
           )}
