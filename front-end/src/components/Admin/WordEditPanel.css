@@ -1,0 +1,287 @@
+/* ============ WORD EDIT PANEL ============ */
+.word-edit-panel {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============ EDIT CARD ============ */
+.edit-card {
+  width: 100%;
+  max-width: 500px;
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 16px rgba(75, 46, 220, 0.1) !important;
+  border: 1px solid rgba(75, 46, 220, 0.1) !important;
+  overflow: hidden;
+  animation: scaleIn 0.4s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============ EDIT HEADER ============ */
+.edit-header {
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
+  color: white;
+  padding: 20px 24px;
+  border-bottom: 2px solid rgba(75, 46, 220, 0.2);
+}
+
+.edit-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ============ EDIT CONTENT ============ */
+.edit-content {
+  padding: 24px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.edit-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.edit-content::-webkit-scrollbar-thumb {
+  background: rgba(75, 46, 220, 0.2);
+  border-radius: 2px;
+}
+
+/* ============ IMAGE SECTION ============ */
+.image-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.image-section h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.image-preview {
+  width: 100%;
+  max-height: 300px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.15);
+  border: 1px solid rgba(75, 46, 220, 0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============ EDIT FORM ============ */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(75, 46, 220, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(75, 46, 220, 0.1);
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-field .MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
+.form-field .MuiOutlinedInput-root:hover fieldset {
+  border-color: #4b2edc !important;
+}
+
+.form-field .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #4b2edc !important;
+}
+
+/* ============ PREVIEW SECTION ============ */
+.preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-section p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.edit-preview {
+  width: 100%;
+  max-height: 180px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(75, 46, 220, 0.1);
+}
+
+/* ============ VIEW INFO ============ */
+.view-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(75, 46, 220, 0.02);
+  border-radius: 8px;
+  border: 1px solid rgba(75, 46, 220, 0.1);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-item label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+.info-item span {
+  font-size: 0.9rem;
+  color: #6b7280;
+  word-break: break-all;
+}
+
+.url-text {
+  font-family: 'Courier New', monospace !important;
+  background: rgba(75, 46, 220, 0.05);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.8rem !important;
+}
+
+/* ============ EDIT ACTIONS ============ */
+.edit-actions {
+  padding: 12px 16px !important;
+  gap: 8px;
+  background: #f9fafb;
+  border-top: 1px solid rgba(75, 46, 220, 0.1);
+  display: flex !important;
+  justify-content: flex-end;
+}
+
+.edit-actions button {
+  transition: all 0.3s ease;
+}
+
+/* ============ RESPONSIVE TABLET ============ */
+@media (max-width: 1024px) {
+  .edit-card {
+    max-width: 100%;
+  }
+
+  .image-preview {
+    max-height: 250px;
+  }
+
+  .edit-header h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 768px) {
+  .edit-card {
+    max-width: 100%;
+  }
+
+  .edit-header {
+    padding: 16px 20px;
+  }
+
+  .edit-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .edit-content {
+    padding: 20px !important;
+    gap: 16px;
+    max-height: 400px;
+  }
+
+  .image-preview {
+    max-height: 200px;
+  }
+
+  .edit-preview {
+    max-height: 150px;
+  }
+
+  .edit-actions {
+    padding: 12px 16px !important;
+    flex-direction: row;
+  }
+
+  .edit-actions button {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-header h2 {
+    font-size: 1rem;
+  }
+
+  .image-section h3 {
+    font-size: 0.95rem;
+  }
+
+  .edit-content {
+    padding: 16px !important;
+    gap: 12px;
+    max-height: 350px;
+  }
+
+  .image-preview {
+    max-height: 180px;
+  }
+
+  .form-field .MuiOutlinedInput-root {
+    font-size: 0.9rem;
+  }
+
+  .info-item label {
+    font-size: 0.85rem;
+  }
+
+  .info-item span {
+    font-size: 0.85rem;
+  }
+
+  .url-text {
+    font-size: 0.75rem !important;
+    padding: 6px;
+  }
+}

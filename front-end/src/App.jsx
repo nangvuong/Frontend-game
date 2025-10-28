@@ -8,6 +8,7 @@ import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import History from "./components/History/History";
 import Rank from "./components/Rank/Rank";
+import Admin from "./components/Admin/AdminWordManagement";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -49,7 +50,7 @@ function AppContent({ isLoggedIn, user, handleLogin, handleLogout }) {
           path="/"
           element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Home user={user} />
+              {user?.role === "admin" ? <Admin user={user} /> : <Home user={user} />}
             </ProtectedRoute>
           }
         />

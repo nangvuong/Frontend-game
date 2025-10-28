@@ -32,15 +32,6 @@ export default function ProfileHeader({ userData, onEditClick }) {
                 {userData.fullName || userData.username}
               </Typography>
               <Typography className="rating-value">{userData.totalScore || 0}</Typography>
-              <Typography
-                sx={{
-                  color: userData.status === 'ONLINE' ? '#10b981' : '#6b7280',
-                  fontSize: '0.9rem',
-                  fontWeight: 600,
-                }}
-              >
-                {userData.status === 'ONLINE' ? '🟢 Đang online' : '⚫ Offline'}
-              </Typography>
             </Box>
 
             <Box className="profile-right">

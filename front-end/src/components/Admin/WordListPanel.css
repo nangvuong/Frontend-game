@@ -1,0 +1,268 @@
+/* ============ WORD LIST PANEL ============ */
+.word-list-panel {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out 0.1s both;
+  max-height: 600px;
+  border: 1px solid rgba(75, 46, 220, 0.06);
+  box-shadow: 0 1px 3px rgba(75, 46, 220, 0.08);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============ LIST HEADER ============ */
+.list-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%);
+  border-bottom: none;
+}
+
+.list-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ============ WORD LIST (SAME AS PLAYERS LIST) ============ */
+.word-list {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  gap: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Scrollbar Styling - SAME AS HOME */
+.word-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.word-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.word-list::-webkit-scrollbar-thumb {
+  background: rgba(75, 46, 220, 0.2);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.word-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(75, 46, 220, 0.4);
+}
+
+/* ============ WORD LIST ITEM (SAME AS PLAYER LIST ITEM) ============ */
+.word-list-item {
+  background: white;
+  border-radius: 0;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid rgba(75, 46, 220, 0.06);
+  box-shadow: none !important;
+  border: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  margin: 0 !important;
+  min-height: 76px;
+  display: flex !important;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.word-list-item:last-child {
+  border-bottom: none;
+}
+
+.word-list-item:hover {
+  background: rgba(75, 46, 220, 0.03);
+  border-bottom-color: rgba(75, 46, 220, 0.15);
+}
+
+.word-list-item:active {
+  background: rgba(75, 46, 220, 0.06);
+}
+
+/* ============ WORD ITEM AVATAR ============ */
+.word-item-avatar {
+  width: 56px !important;
+  height: 56px !important;
+  background: linear-gradient(135deg, #4b2edc 0%, #6a4cf3 100%) !important;
+  font-size: 1.3rem !important;
+  font-weight: bold !important;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(75, 46, 220, 0.2);
+  object-fit: cover;
+}
+
+/* ============ WORD ITEM TEXT (SAME AS PLAYER LIST TEXT) ============ */
+.word-list-item .MuiListItemText-root {
+  margin: 0 !important;
+  margin-left: 12px !important;
+}
+
+.word-list-item .MuiListItemText-primary {
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: #1f2937 !important;
+  letter-spacing: 0.3px;
+}
+
+.word-list-item .MuiListItemText-secondary {
+  font-size: 0.85rem !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============ RESPONSIVE TABLET ============ */
+@media (max-width: 1024px) {
+  .word-display-wrapper .start-letter {
+    width: 80px;
+    height: 80px;
+    font-size: 2.2rem;
+  }
+
+  .word-display-wrapper .start-word-letters,
+  .word-display-wrapper .start-scramble-letters {
+    gap: 12px;
+  }
+
+  .word-display-wrapper .auth-slogan {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 768px) {
+  .word-list-panel {
+    max-height: 500px;
+  }
+
+  .list-header h3 {
+    font-size: 1rem;
+  }
+
+  .word-list-item {
+    padding: 12px 14px !important;
+    min-height: 70px;
+  }
+
+  .word-item-avatar {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .word-list-item .MuiListItemText-primary {
+    font-size: 0.95rem !important;
+  }
+
+  .word-list-item .MuiListItemText-secondary {
+    font-size: 0.8rem !important;
+  }
+
+  .word-display-wrapper {
+    padding: 30px;
+  }
+
+  .word-display-wrapper .start-letter {
+    width: 70px;
+    height: 70px;
+    font-size: 1.8rem;
+  }
+
+  .word-display-wrapper .start-word-letters,
+  .word-display-wrapper .start-scramble-letters {
+    gap: 10px;
+  }
+
+  .word-display-wrapper .auth-slogan {
+    font-size: 1.1rem !important;
+    max-width: 350px;
+    padding: 18px 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .word-list-panel {
+    max-height: 400px;
+  }
+
+  .list-header h3 {
+    font-size: 0.95rem;
+  }
+
+  .word-list-item {
+    padding: 12px 14px !important;
+    min-height: 60px;
+  }
+
+  .word-item-avatar {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1rem !important;
+    border-width: 2px !important;
+  }
+
+  .word-list-item .MuiListItemText-primary {
+    font-size: 0.9rem !important;
+  }
+
+  .word-list-item .MuiListItemText-secondary {
+    font-size: 0.75rem !important;
+  }
+
+  .word-list-item .MuiListItemText-root {
+    margin-left: 10px !important;
+  }
+
+  .word-display-wrapper {
+    padding: 20px;
+  }
+
+  .word-display-wrapper .start-words-display {
+    gap: 24px;
+  }
+
+  .word-display-wrapper .start-word-title {
+    gap: 16px;
+  }
+
+  .word-display-wrapper .start-letter {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .word-display-wrapper .start-word-letters,
+  .word-display-wrapper .start-scramble-letters {
+    gap: 8px;
+  }
+
+  .word-display-wrapper .auth-slogan {
+    font-size: 1rem !important;
+    max-width: 100%;
+    padding: 16px 18px !important;
+  }
+}

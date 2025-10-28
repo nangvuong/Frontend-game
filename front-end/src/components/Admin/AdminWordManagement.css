@@ -1,0 +1,375 @@
+/* ============ ADMIN CONTAINER ============ */
+.admin-container {
+  min-height: 90vh;
+  background: linear-gradient(to bottom, #f5f3ff 0%, #faf9ff 100%);
+  padding: 32px 24px;
+  box-sizing: border-box;
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============ SEARCH WRAPPER (LIKE HOME) ============ */
+.search-wrapper {
+  max-width: 100%;
+  margin: 0;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.search-field {
+  width: 100%;
+}
+
+/* ============ ADMIN CONTENT LAYOUT ============ */
+.admin-content {
+  display: contents;
+}
+
+.admin-left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: slideInLeft 0.6s ease-out;
+  max-width: 500px;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.admin-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInRight 0.6s ease-out 0.2s both;
+  min-height: 500px;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============ LOGO PLACEHOLDER ============ */
+.logo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 60px 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(75, 46, 220, 0.08);
+  border: 2px solid rgba(75, 46, 220, 0.1);
+  text-align: center;
+}
+
+.logo-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.logo-placeholder h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.logo-placeholder p {
+  margin: 0;
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 400px;
+}
+
+/* ============ WORD DISPLAY WRAPPER ============ */
+.word-display-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Override WordLettersDisplay styling for admin - SAME AS HOME */
+.word-display-wrapper .start-words-display {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.word-display-wrapper .start-word-title {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.word-display-wrapper .start-word-letters {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.word-display-wrapper .start-scramble-letters {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease-out 0.15s both;
+}
+
+.word-display-wrapper .start-letter {
+  background: white;
+  color: #4b2edc;
+  font-weight: bold;
+  font-size: 1.8rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+.word-display-wrapper .start-letter:hover {
+  transform: scale(1.1) translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Sync slogan animation with word letters */
+.word-display-wrapper .auth-slogan {
+  animation: fadeInUp 1s ease-out 0.3s both !important;
+}
+
+/* Word Slogan - GIỐNG HOME */
+.word-display-wrapper .word-slogan,
+.word-display-wrapper .auth-slogan {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+  text-align: center !important;
+  line-height: 1.5;
+  max-width: 300px;
+  background: rgba(75, 46, 220, 0.15);
+  padding: 16px 20px !important;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(75, 46, 220, 0.25);
+  box-shadow: 0 4px 12px rgba(75, 46, 220, 0.1);
+}
+
+/* ============ RESPONSIVE TABLET ============ */
+@media (max-width: 1024px) {
+  .admin-container {
+    padding: 28px 20px;
+  }
+
+  .search-wrapper {
+    margin-bottom: 28px;
+  }
+
+  .admin-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .admin-right {
+    min-height: 450px;
+    width: 100%;
+  }
+
+  .word-display-wrapper .start-letter {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+
+  .word-display-wrapper .start-word-letters,
+  .word-display-wrapper .start-scramble-letters {
+    gap: 12px;
+  }
+
+  .word-display-wrapper .word-slogan,
+  .word-display-wrapper .auth-slogan {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 20px 14px;
+    margin-top: 60px;
+    gap: 24px;
+  }
+
+  .admin-left {
+    gap: 16px;
+    max-width: 100%;
+  }
+
+  .search-wrapper {
+    margin-bottom: 24px;
+  }
+
+  .admin-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .admin-right {
+    min-height: 380px;
+  }
+
+  .word-display-wrapper {
+    gap: 36px;
+  }
+
+  .word-display-wrapper .start-letter {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+
+  .word-display-wrapper .start-word-letters {
+    gap: 10px;
+  }
+
+  .word-display-wrapper .start-scramble-letters {
+    gap: 8px;
+  }
+
+  .word-display-wrapper .word-slogan,
+  .word-display-wrapper .auth-slogan {
+    font-size: 0.9rem !important;
+    max-width: 300px;
+    padding: 14px 18px !important;
+  }
+
+  .logo-placeholder {
+    padding: 40px 24px;
+  }
+
+  .logo-icon {
+    font-size: 3rem;
+  }
+
+  .logo-placeholder h2 {
+    font-size: 1.4rem;
+  }
+
+  .logo-placeholder p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-container {
+    padding: 16px 12px;
+    margin-top: 56px;
+    gap: 20px;
+  }
+
+  .admin-left {
+    gap: 14px;
+    max-width: 100%;
+  }
+
+  .search-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .admin-right {
+    min-height: 340px;
+  }
+
+  .word-display-wrapper {
+    gap: 28px;
+  }
+
+  .word-display-wrapper .start-letter {
+    width: 48px;
+    height: 48px;
+    font-size: 1.1rem;
+  }
+
+  .word-display-wrapper .start-word-letters {
+    gap: 8px;
+  }
+
+  .word-display-wrapper .start-scramble-letters {
+    gap: 6px;
+  }
+
+  .word-display-wrapper .word-slogan,
+  .word-display-wrapper .auth-slogan {
+    font-size: 0.85rem !important;
+    max-width: 280px;
+    padding: 12px 16px !important;
+  }
+
+  .logo-placeholder {
+    padding: 32px 16px;
+  }
+
+  .logo-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+
+  .logo-placeholder h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+
+  .logo-placeholder p {
+    font-size: 0.85rem;
+  }
+}
